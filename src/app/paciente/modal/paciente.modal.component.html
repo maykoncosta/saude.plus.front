@@ -1,0 +1,39 @@
+<ion-content class="ion-padding">
+    <ion-modal [isOpen]="isModalOpen" [ngClass]="{'backdrop-no-scroll': isModalOpen}">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-buttons slot="start">
+              <ion-button (click)="cancelar()">Cancelar</ion-button>
+            </ion-buttons>
+            <ion-title>Cadastrar</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="salvar()" [strong]="true">Salvar</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+          <ion-item>
+            <ion-label position="stacked">Nome</ion-label>
+            <ion-input type="text" placeholder="Nome" 
+                [(ngModel)]="nome" name="nome"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Data de Nascimento</ion-label>
+            <ion-input type="text" placeholder="14/07/2023" 
+              [(ngModel)]="dataNascimento" name="dataNascimento"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Celular</ion-label>
+            <ion-input type="text" placeholder="(83) 90000-0000" 
+              [(ngModel)]="celular" name="celular"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Cartão do Sus</ion-label>
+            <ion-input type="text" placeholder="sus" 
+              [(ngModel)]="cns" name="cns"></ion-input>
+          </ion-item>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+  </ion-content>

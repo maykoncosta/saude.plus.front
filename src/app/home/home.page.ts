@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { PacientesModalComponent } from '../paciente/modal/paciente.modal.component';
+import { PacientesComponent } from '../paciente/paciente.component';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -6,7 +9,12 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  pacienteModal = PacientesModalComponent;
+  pacientes = PacientesComponent;
+  constructor(private navCtrl: NavController) { }
+  teste = 'teste';
 
-  constructor() {}
-
+  irParaPaciente(){
+    this.navCtrl.navigateForward('pacientes');
+  }
 }
