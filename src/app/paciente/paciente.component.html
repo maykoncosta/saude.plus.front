@@ -1,28 +1,33 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar class="header">
       <ion-title> Pacientes </ion-title>
     </ion-toolbar>
 </ion-header>
 <ion-content class="ion-margin">
-  <ion-button (click)="openPacienteModal()" expand="block">Cadastrar Paciente</ion-button>
-
   <div class="table-box">
     <ion-grid  class="ion-margin scroll-lateral col s4 offset-s4 card">
-      <ion-row >
-        <ion-col size="4">Nome</ion-col>
+      <ion-row>
+        <ion-col class="head" size="12">Pacientes 
+          <ion-button (click)="openPacienteModal()" 
+            color="dark">Cadastrar Paciente</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row class="head-table">
+        <ion-col size="4.5">Nome</ion-col>
         <ion-col size="2">Idade</ion-col>
         <ion-col size="2">Celular</ion-col>
         <ion-col size="3">Cartão do Sus</ion-col>
-        <ion-col size="1"> + </ion-col>
+        <ion-col size="0.5" style="text-align: center;"> + </ion-col>
       </ion-row>
       <ion-row  *ngFor="let paciente of pacientes; index as i">
-        <ion-col size="4">{{ paciente.nome }}</ion-col>
+        <ion-col size="4.5">{{ paciente.nome }}</ion-col>
         <ion-col size="2">{{ paciente.dataNascimento }}</ion-col>
         <ion-col size="2">{{ paciente.celular }}</ion-col>
         <ion-col size="3">{{ paciente.cns }}</ion-col>
-        <ion-col size="1">
-          <ion-button fill="clear" (click)="openPacienteModal(paciente)">
-            <ion-icon name="create-outline"></ion-icon>
+        <ion-col size="0.5" class="col-update">
+          <ion-button fill="clear" expand="full"
+            (click)="openPacienteModal(paciente)">
+            <ion-icon class="icon-update" name="create-outline"></ion-icon>
           </ion-button>
         </ion-col>
       </ion-row>

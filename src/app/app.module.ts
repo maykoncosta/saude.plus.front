@@ -19,7 +19,7 @@ import { PacienteModule } from './paciente/paciente.module';
     AppRoutingModule, HttpClientModule, RouterLink, HomePageModule,
     PacienteModule
     ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy,  }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

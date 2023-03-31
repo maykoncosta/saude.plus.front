@@ -17,6 +17,10 @@ export class PacientesModalComponent implements OnInit {
     dataSource: any;
     pacienteNew: Paciente = new Paciente();
 
+    dateMask: string = '00/00/0000';
+    phoneMask: string = '(00)00000-0000';
+    cnsMask: string = '000 0000 0000 0000';
+
     dataNascimento!: string;
     nome!: string;
     celular!: string;

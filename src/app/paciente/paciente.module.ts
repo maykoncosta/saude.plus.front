@@ -8,6 +8,9 @@ import { PacienteRoutingModule } from './paciente-routing.module';
 
 import { PacientesComponent } from './paciente.component';
 import { PacientesModalComponent } from './modal/paciente.modal.component';
+import { NgxMaskPipe } from 'ngx-mask';
+import { NgxMaskDirective } from 'ngx-mask';
+import { provideNgxMask } from 'ngx-mask';
 
 @NgModule({
   imports: [
@@ -15,8 +18,11 @@ import { PacientesModalComponent } from './modal/paciente.modal.component';
     FormsModule,
     IonicModule,
     PacienteRoutingModule,
+    NgxMaskPipe,
+    NgxMaskDirective
   ],
   declarations: [PacientesComponent, PacientesModalComponent],
-  exports: [PacientesComponent, PacientesModalComponent]
+  exports: [PacientesComponent, PacientesModalComponent],
+  providers: [provideNgxMask()]
 })
 export class PacienteModule {}

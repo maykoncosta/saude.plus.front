@@ -15,23 +15,31 @@
         <ion-content class="ion-padding">
           <ion-item>
             <ion-label position="stacked">Nome</ion-label>
-            <ion-input type="text" placeholder="Nome" 
-                [(ngModel)]="nome" name="nome"></ion-input>
+            <ion-input>
+              <input type="text" placeholder="Nome" 
+              [(ngModel)]="nome" name="nome"/>
+            </ion-input>
           </ion-item>
           <ion-item>
             <ion-label position="stacked">Data de Nascimento</ion-label>
-            <ion-input type="text" placeholder="14/07/2023" 
-              [(ngModel)]="dataNascimento" name="dataNascimento"></ion-input>
+            <ion-input >
+               <input type="text" placeholder="dd/mm/aaaa"
+                [(ngModel)]="dataNascimento" [mask]="dateMask"/>
+            </ion-input>
           </ion-item>
           <ion-item>
             <ion-label position="stacked">Celular</ion-label>
-            <ion-input type="text" placeholder="(83) 90000-0000" 
-              [(ngModel)]="celular" name="celular"></ion-input>
+            <ion-input>
+              <input  type="text" placeholder="(83)9****-****" 
+              [(ngModel)]="celular" [mask]="phoneMask" name="celular"/>
+            </ion-input>
           </ion-item>
           <ion-item>
             <ion-label position="stacked">Cartão do Sus</ion-label>
-            <ion-input type="text" placeholder="sus" 
-              [(ngModel)]="cns" name="cns"></ion-input>
+            <ion-input>
+              <input type="text" placeholder="sus" 
+              [(ngModel)]="cns" [mask]="cnsMask" name="cns">
+            </ion-input>
           </ion-item>
         </ion-content>
       </ng-template>

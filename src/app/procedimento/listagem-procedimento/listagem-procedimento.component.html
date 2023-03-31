@@ -10,6 +10,7 @@
         <ion-col size="">Local</ion-col>
         <ion-col size="">Especialidade</ion-col>
         <ion-col size="1.5">Tipo</ion-col>
+        <ion-col size="1" style="text-align: center;"> + </ion-col>
       </ion-row>
       <ion-row  *ngFor="let procedimento of procedimentos; index as i">
         <ion-col size="4">{{ procedimento.nome }}</ion-col>
@@ -17,6 +18,11 @@
         <ion-col >{{ procedimento.local }}</ion-col>
         <ion-col> {{ procedimento.especialidade }}</ion-col>
         <ion-col size="1.5">{{ procedimento.tipo }}</ion-col>
+        <ion-col size="1">
+          <ion-button fill="clear" class="btn-update" >
+            <ion-icon class="icon-update" name="create-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
       </ion-row> 
     </ion-grid>
   </div>

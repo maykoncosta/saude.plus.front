@@ -3,12 +3,29 @@ ion-grid {
     border-collapse: collapse;
     border-style: hidden;
 
-    
+    .head-table{
+      background-color:  #3880FF;
+      font-weight: bold;
+    }
 
-    max-width: 750px;
+    .head{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .icon-update{
+      margin: -10px;
+    }
+    
+    .col-update{
+      padding: 0;
+    }
+
+    max-width: 900px;
 
     ion-row:first-child {
-      background-color:  #2dd36f;
+      background-color:  #5195FF;
       font-weight: bold;
     }
 
@@ -26,7 +43,6 @@ ion-grid {
     }
   }
   .table-box{
-    
   display: flex;
   align-items: center;
   justify-content: center;
@@ -35,9 +51,16 @@ ion-grid {
     overflow-x: scroll;
     white-space: nowrap;
 }
-  @media screen and (min-width: 700px) {
+  @media screen and (max-width: 700px) {
     .scroll-lateral {
       overflow-x: visible;
       white-space: normal;
     }
+    .table-box{
+      font-size: x-small;
+    }
   }
+
+.toolbar-container{
+  background-color:  #3880FF;
+}
