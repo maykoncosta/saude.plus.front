@@ -1,7 +1,8 @@
 export class Paciente {
     id!: number;
-    dataNascimento!: string;
+    dataNascimento!: Date;
     nome!: string;
     celular!: string;
-    cns!: string;
+    cns!: Number;
+    fotoPaciente!: string;
   }

@@ -15,7 +15,7 @@ import { PacienteModule } from './paciente/paciente.module';
 
 @NgModule({
   declarations: [AppComponent, TabsComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), 
+  imports: [BrowserModule, IonicModule.forRoot(),
     AppRoutingModule, HttpClientModule, RouterLink, HomePageModule,
     PacienteModule
     ],

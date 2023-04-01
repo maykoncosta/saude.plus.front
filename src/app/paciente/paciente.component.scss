@@ -17,7 +17,7 @@ ion-grid {
     .icon-update{
       margin: -10px;
     }
-    
+
     .col-update{
       padding: 0;
     }
@@ -37,7 +37,7 @@ ion-grid {
     ion-col:last-child {
       border-right: 1px solid black;
     }
-    
+
     ion-row:last-child {
       border-bottom: 1px solid black;
     }
@@ -63,4 +63,12 @@ ion-grid {
 
 .toolbar-container{
   background-color:  #3880FF;
+}
+
+.icon-update, .icon-delete {
+  font-size: 20px; /* defina o tamanho desejado em pixels */
+}
+
+.icon-update {
+  width: 40px;
 }

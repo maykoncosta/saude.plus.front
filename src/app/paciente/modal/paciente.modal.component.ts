@@ -1,8 +1,7 @@
 import { Component, ViewChild, OnInit, Input } from '@angular/core';
 import { IonModal, ModalController } from '@ionic/angular';
 import { Paciente } from '../paciente.service';
-import { PacienteService } from '../paciente.service'; 
-
+import { PacienteService } from '../paciente.service';
 
 
 @Component({
@@ -12,56 +11,63 @@ import { PacienteService } from '../paciente.service';
 export class PacientesModalComponent implements OnInit {
   @Input() paciente: Paciente | null = null;
 
-    displayedColumns: string[] = ['id', 'name', 'age', 'phone', 'cns'];
-    pacientes:any = [];
-    dataSource: any;
-    pacienteNew: Paciente = new Paciente();
+  displayedColumns: string[] = ['id', 'name', 'age', 'phone', 'cns'];
+  pacientes: any = [];
+  dataSource: any;
+  pacienteNew: Paciente = new Paciente();
 
-    dateMask: string = '00/00/0000';
-    phoneMask: string = '(00)00000-0000';
-    cnsMask: string = '000 0000 0000 0000';
+  dateMask: string = '00/00/0000';
+  phoneMask: string = '(00)00000-0000';
+  cnsMask: string = '000 0000 0000 0000';
 
-    dataNascimento!: string;
-    nome!: string;
-    celular!: string;
-    cns!: string;
-    @ViewChild(IonModal) modal!: IonModal;
-    isModalOpen = true;
+  dataNascimento!: Date;
+  nome!: string;
+  celular!: string;
+  cns!: Number;
+  fotoPaciente!: string;
 
-    setOpen(isOpen: boolean) {
-      this.isModalOpen = isOpen;
-    }
+  @ViewChild(IonModal) modal!: IonModal;
+  isModalOpen = true;
 
+  setOpen(isOpen: boolean) {
+    this.isModalOpen = isOpen;
+  }
 
-  constructor(private pacienteService: PacienteService, 
-    private modalController: ModalController) { }
-  
+  constructor(private pacienteService: PacienteService,
+    private ionModalController: ModalController,
+    ) { }
+
   ngOnInit() {
     if (this.paciente) {
       this.nome = this.paciente.nome;
       this.dataNascimento = this.paciente.dataNascimento;
       this.celular = this.paciente.celular;
       this.cns = this.paciente.cns;
+      this.fotoPaciente = this.paciente.fotoPaciente;
     }
   }
 
   cancelar() {
-    this.isModalOpen = false;
-    this.modal.dismiss();
+    this.ionModalController.dismiss();
   }
 
   salvar() {
     this.obterObjeto();
     console.log(this.paciente);
-  
+
     if (this.paciente) {
       // Atualizar paciente existente
+      this.paciente.nome = this.nome;
+      this.paciente.dataNascimento = this.dataNascimento;
+      this.paciente.celular = this.celular;
+      this.paciente.cns = this.cns;
+      this.paciente.fotoPaciente = this.fotoPaciente;
       this.atualizarPaciente(this.paciente);
     } else {
       // Criar novo paciente
-      this.cadastrarPaciente(this.paciente);
+      this.cadastrarPaciente(this.pacienteNew);
     }
-  
+
     this.modal.dismiss(this.nome, 'confirm');
   }
 
@@ -70,19 +76,21 @@ export class PacientesModalComponent implements OnInit {
     this.pacienteNew.dataNascimento = this.dataNascimento;
     this.pacienteNew.celular = this.celular;
     this.pacienteNew.cns = this.cns;
-}
-  
-  cadastrarPaciente(paciente: any){
-    this.pacienteService.addPaciente(paciente).subscribe(
+    this.pacienteNew.fotoPaciente = this.fotoPaciente;
+
+  }
+
+  cadastrarPaciente(pacienteNew: Paciente) {
+    this.pacienteService.addPaciente(pacienteNew).subscribe(
       res => {
         console.log("sucesso");
         console.log(res);
-       // this.displayMessage('Patient added successfully.');
+        // this.displayMessage('Patient added successfully.');
       },
       err => {
         console.log("error");
         console.log(err);
-       // this.componentService.displayMessage('Failed to add patient. Please try again.');
+        // this.componentService.displayMessage('Failed to add patient. Please try again.');
       }
     );
   }

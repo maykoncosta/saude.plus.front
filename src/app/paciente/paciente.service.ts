@@ -7,9 +7,10 @@ import { map } from 'rxjs/operators';
 export class Paciente {
     id!: number;
     nome!: string;
-    dataNascimento!: string;
+    dataNascimento!: Date;
     celular!: string;
-    cns!: string;
+    cns!: Number;
+    fotoPaciente!: string;
   }
 
 @Injectable({
@@ -28,9 +29,10 @@ export class PacienteService {
           return {
             id: p.id,
             nome: p.nome,
-            dataNascimento: p.dataNascimento[2]+ '/' + p.dataNascimento[1] + '/' + p.dataNascimento[0],
+            dataNascimento: p.dataNascimento,
             celular: p.celular,
-            cns: p.cns
+            cns: p.cns,
+            fotoPaciente: p.fotoPaciente
           };
         }))
       );
