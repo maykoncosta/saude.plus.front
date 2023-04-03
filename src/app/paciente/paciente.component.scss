@@ -47,17 +47,12 @@ ion-grid {
   align-items: center;
   justify-content: center;
   }
-.scroll-lateral{
-    overflow-x: scroll;
-    white-space: nowrap;
-}
   @media screen and (max-width: 700px) {
-    .scroll-lateral {
-      overflow-x: visible;
-      white-space: normal;
-    }
     .table-box{
       font-size: x-small;
+    }
+    .btnCadastrar{
+      font-size: smaller;
     }
   }
 

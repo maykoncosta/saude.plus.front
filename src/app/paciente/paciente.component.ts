@@ -56,13 +56,15 @@ export class PacientesComponent implements OnInit {
         paciente: paciente
       }
     });
-
     await modal.present();
-
+    
+    console.log('componente principal 1')
     const { data } = await modal.onDidDismiss();
+    console.log('componente principal 2')
 
     if (data) {
       // Atualize a lista de pacientes após a modal ser fechada
+      console.log('componente principal 3')
       this.obterTodosPacientes();
     }
   }

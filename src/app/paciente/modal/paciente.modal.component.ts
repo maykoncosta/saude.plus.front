@@ -6,7 +6,8 @@ import { PacienteService } from '../paciente.service';
 
 @Component({
   selector: 'app-pacientes-modal',
-  templateUrl: 'paciente.modal.component.html'
+  templateUrl: 'paciente.modal.component.html',
+  styleUrls: ['paciente.modal.component.scss'],
 })
 export class PacientesModalComponent implements OnInit {
   @Input() paciente: Paciente | null = null;
@@ -48,6 +49,8 @@ export class PacientesModalComponent implements OnInit {
   }
 
   cancelar() {
+    console.log('componente da modal');
+    this.isModalOpen = false;
     this.ionModalController.dismiss();
   }
 
@@ -68,7 +71,7 @@ export class PacientesModalComponent implements OnInit {
       this.cadastrarPaciente(this.pacienteNew);
     }
 
-    this.modal.dismiss(this.nome, 'confirm');
+    this.ionModalController.dismiss({ data: this.paciente });
   }
 
   obterObjeto() {

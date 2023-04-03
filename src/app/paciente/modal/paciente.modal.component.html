@@ -1,14 +1,16 @@
-<ion-content class="ion-padding">
-  <ion-modal [isOpen]="isModalOpen" [ngClass]="{'backdrop-no-scroll': isModalOpen}" backdropDismiss="false">
-    <ng-template>
+
       <ion-header>
         <ion-toolbar>
           <ion-buttons slot="start">
-            <ion-button (click)="cancelar()">Cancelar</ion-button>
+            <ion-nav-link router-direction="" [component]="paciente">
+              <ion-button class="btnHeader" (click)="cancelar()">
+                Cancelar
+              </ion-button>
+            </ion-nav-link>
           </ion-buttons>
-          <ion-title>Cadastrar</ion-title>
+          <ion-title class="title">Cadastrar</ion-title>
           <ion-buttons slot="end">
-            <ion-button (click)="salvar()" [strong]="true">Salvar</ion-button>
+            <ion-button class="btnHeader" (click)="salvar()" [strong]="true">Salvar</ion-button>
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
@@ -34,6 +36,3 @@
           <ion-input [(ngModel)]="fotoPaciente"></ion-input>
         </ion-item>
       </ion-content>
-    </ng-template>
-  </ion-modal>
-</ion-content>
