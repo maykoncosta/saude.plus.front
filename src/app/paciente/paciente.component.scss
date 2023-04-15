@@ -14,11 +14,11 @@ ion-grid {
       align-items: center;
     }
 
-    .icon-update{
+    .icon-update, .icon-delete{
       margin: -10px;
     }
 
-    .col-update{
+    .col-update, .icon-delete{
       padding: 0;
     }
 
@@ -54,6 +54,12 @@ ion-grid {
     .btnCadastrar{
       font-size: smaller;
     }
+    .btnsUpdate{
+      width: 30px;
+    }
+    .icon-update, .icon-delete {
+      width: 15px;
+    }
   }
 
 .toolbar-container{
@@ -64,6 +70,10 @@ ion-grid {
   font-size: 20px; /* defina o tamanho desejado em pixels */
 }
 
-.icon-update {
+.icon-update, .icon-delete {
   width: 40px;
+}
+
+.custom-modal{
+  max-width: 450px !important;
 }

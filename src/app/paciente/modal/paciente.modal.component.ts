@@ -2,6 +2,7 @@ import { Component, ViewChild, OnInit, Input } from '@angular/core';
 import { IonModal, ModalController } from '@ionic/angular';
 import { Paciente } from '../paciente.service';
 import { PacienteService } from '../paciente.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 
 @Component({
@@ -10,6 +11,7 @@ import { PacienteService } from '../paciente.service';
   styleUrls: ['paciente.modal.component.scss'],
 })
 export class PacientesModalComponent implements OnInit {
+  form: FormGroup;
   @Input() paciente: Paciente | null = null;
 
   displayedColumns: string[] = ['id', 'name', 'age', 'phone', 'cns'];
@@ -20,67 +22,68 @@ export class PacientesModalComponent implements OnInit {
   dateMask: string = '00/00/0000';
   phoneMask: string = '(00)00000-0000';
   cnsMask: string = '000 0000 0000 0000';
+  classVariable: string = '';
+  classCns: string = '';
 
-  dataNascimento!: Date;
-  nome!: string;
-  celular!: string;
-  cns!: Number;
-  fotoPaciente!: string;
 
   @ViewChild(IonModal) modal!: IonModal;
-  isModalOpen = true;
 
-  setOpen(isOpen: boolean) {
-    this.isModalOpen = isOpen;
-  }
+  changeClass (isCns: boolean) {
+    if(isCns){
+      this.classCns = 'item-has-focus';
+    }else{
+      this.classVariable = 'item-has-focus';
+    }
+ }
 
   constructor(private pacienteService: PacienteService,
     private ionModalController: ModalController,
-    ) { }
+    ) {
+      this.form = new FormGroup({
+        nome: new FormControl('', Validators.required),
+        dataNascimento: new FormControl('', Validators.required),
+        celular: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(16)]),
+        cns: new FormControl('', [Validators.required, Validators.minLength(15), Validators.maxLength(15)]),
+      });
+    }
 
   ngOnInit() {
     if (this.paciente) {
-      this.nome = this.paciente.nome;
-      this.dataNascimento = this.paciente.dataNascimento;
-      this.celular = this.paciente.celular;
-      this.cns = this.paciente.cns;
-      this.fotoPaciente = this.paciente.fotoPaciente;
+      console.log(this.paciente);
+      this.setFormValues(this.paciente);
+      this.classCns = 'item-has-focus';
+      this.classVariable = 'item-has-focus';
+      console.log(this.form.value);
     }
   }
 
   cancelar() {
-    console.log('componente da modal');
-    this.isModalOpen = false;
     this.ionModalController.dismiss();
   }
 
   salvar() {
-    this.obterObjeto();
-    console.log(this.paciente);
-
-    if (this.paciente) {
-      // Atualizar paciente existente
-      this.paciente.nome = this.nome;
-      this.paciente.dataNascimento = this.dataNascimento;
-      this.paciente.celular = this.celular;
-      this.paciente.cns = this.cns;
-      this.paciente.fotoPaciente = this.fotoPaciente;
-      this.atualizarPaciente(this.paciente);
+    console.log(this.form.value.dataNascimento);
+    if (this.form.valid) {
+      const formData = this.form.value;
+  
+      if (this.paciente) {
+        // Atualizar paciente existente
+        this.paciente.nome = formData.nome;
+        this.paciente.dataNascimento = formData.dataNascimento;
+        this.paciente.celular = formData.celular;
+        this.paciente.cns = formData.cns;
+        this.atualizarPaciente(this.paciente);
+      } else {
+        // Criar novo paciente
+        this.cadastrarPaciente(formData);
+      }
+  
+      this.ionModalController.dismiss({ data: this.paciente });
     } else {
-      // Criar novo paciente
-      this.cadastrarPaciente(this.pacienteNew);
+      console.log('não valido');
+      // Lidar com a situação em que o formulário é inválido
     }
-
     this.ionModalController.dismiss({ data: this.paciente });
-  }
-
-  obterObjeto() {
-    this.pacienteNew.nome = this.nome;
-    this.pacienteNew.dataNascimento = this.dataNascimento;
-    this.pacienteNew.celular = this.celular;
-    this.pacienteNew.cns = this.cns;
-    this.pacienteNew.fotoPaciente = this.fotoPaciente;
-
   }
 
   cadastrarPaciente(pacienteNew: Paciente) {
@@ -111,6 +114,21 @@ export class PacientesModalComponent implements OnInit {
         // this.componentService.displayMessage('Failed to update patient. Please try again.');
       }
     );
+  }
+
+  private setFormValues(paciente: any) {
+    console.log(this.convertDateFormat(paciente.dataNascimento));
+    this.form.patchValue({
+      nome: paciente.nome,
+      dataNascimento: this.convertDateFormat(paciente.dataNascimento),
+      celular: paciente.celular,
+      cns: paciente.cns,
+    });
+  }
+
+  private convertDateFormat(dateStr: String): String {
+    const dateParts = dateStr.split('/');
+    return `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
   }
 
 }

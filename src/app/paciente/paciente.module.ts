@@ -11,6 +11,7 @@ import { PacientesModalComponent } from './modal/paciente.modal.component';
 import { NgxMaskPipe } from 'ngx-mask';
 import { NgxMaskDirective } from 'ngx-mask';
 import { provideNgxMask } from 'ngx-mask';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { provideNgxMask } from 'ngx-mask';
     IonicModule,
     PacienteRoutingModule,
     NgxMaskPipe,
-    NgxMaskDirective
+    NgxMaskDirective,
+    ReactiveFormsModule,
   ],
   declarations: [PacientesComponent, PacientesModalComponent],
   exports: [PacientesComponent, PacientesModalComponent],

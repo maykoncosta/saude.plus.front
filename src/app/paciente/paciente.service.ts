@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 export class Paciente {
     id!: number;
     nome!: string;
-    dataNascimento!: Date;
+    dataNascimento!: String;
     celular!: string;
     cns!: Number;
     fotoPaciente!: string;

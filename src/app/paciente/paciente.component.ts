@@ -13,7 +13,7 @@ import { ModalController, IonModal } from '@ionic/angular';
 export class PacientesComponent implements OnInit {
   paciente: Paciente = new Paciente();
   pacientes!: any;
-  dataNascimento!: Date;
+  dataNascimento!: String;
   nome!: string;
   celular!: string;
   cns!: Number;
@@ -54,17 +54,14 @@ export class PacientesComponent implements OnInit {
       component: PacientesModalComponent,
       componentProps: {
         paciente: paciente
-      }
+      },
+      cssClass: 'custom-modal',
     });
     await modal.present();
     
-    console.log('componente principal 1')
     const { data } = await modal.onDidDismiss();
-    console.log('componente principal 2')
 
     if (data) {
-      // Atualize a lista de pacientes após a modal ser fechada
-      console.log('componente principal 3')
       this.obterTodosPacientes();
     }
   }

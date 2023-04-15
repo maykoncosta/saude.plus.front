@@ -3,7 +3,7 @@
     {
       "id": 2,
       "nome": "Maria Souza Aragão B",
-      "dataNascimento": "1985-12-06",
+      "dataNascimento": "2021-05-29T05:30:00-03:00",
       "celular": "(21) 98888-8888",
       "cns": 543210987654321,
       "fotoPaciente": "543210987654321"
@@ -47,6 +47,13 @@
       "cns": 798798789,
       "fotoPaciente": "798798798",
       "id": 6
+    },
+    {
+      "nome": "Maria",
+      "dataNascimento": "2023-04-13T17:00:00-03:00",
+      "celular": "8888",
+      "cns": 5536436,
+      "id": 7
     }
   ]
 }

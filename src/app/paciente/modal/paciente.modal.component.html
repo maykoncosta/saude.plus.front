@@ -15,24 +15,34 @@
         </ion-toolbar>
       </ion-header>
       <ion-content class="ion-padding">
-        <ion-item>
-          <ion-label position="floating">Nome</ion-label>
-          <ion-input [(ngModel)]="nome"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Data de Nascimento</ion-label>
-          <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="dataNascimento"></ion-datetime>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Celular</ion-label>
-          <ion-input [(ngModel)]="celular" mask="(00)00000-0000"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">CNS</ion-label>
-          <ion-input [(ngModel)]="cns" type="number"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Link da foto</ion-label>
-          <ion-input [(ngModel)]="fotoPaciente"></ion-input>
-        </ion-item>
+        <form [formGroup]="form">
+          <ion-item>
+            <ion-label position="floating">Nome</ion-label>
+            <ion-input formControlName="nome"></ion-input>
+          </ion-item>
+          <ion-item class="datetime-centered">
+            <ion-label position="floating">Data de Nascimento</ion-label>
+            <ion-datetime
+            size="cover"
+              presentation="date"
+              displayFormat="DD/MM/YYYY"
+              formControlName="dataNascimento"
+            ></ion-datetime>
+          </ion-item>
+          <ion-item (click)="changeClass(false)" [class]="classVariable">
+            <ion-label position="floating">Celular</ion-label>
+            <input class="input-classic"
+              formControlName="celular"
+              type="tel"
+              id="inputCell"
+              placeholder="(00) 0000-0000"
+              [mask]="phoneMask"/>
+          </ion-item>
+          <ion-item (click)="changeClass(true)" [class]="classCns">
+            <ion-label position="floating">CNS</ion-label>
+            <input formControlName="cns" class="input-classic" 
+              [mask]="cnsMask"
+              type="text"/>
+          </ion-item>
+        </form>
       </ion-content>
