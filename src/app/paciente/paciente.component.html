@@ -1,41 +1,52 @@
 <ion-header [translucent]="true">
   <ion-toolbar class="header">
-    <ion-title> Pacientes </ion-title>
-  </ion-toolbar>
+    <ion-row >
+      <ion-col class="head" style="display: flex;" size="">
+        <ion-title> Pacientes </ion-title>
+        <ion-searchbar color="medium" placeholder="Buscar Paciente"
+          [(ngModel)]="searchTerm" (ionChange)="filterPacientes()"></ion-searchbar>
+      </ion-col>
+    </ion-row>
+    </ion-toolbar>
 </ion-header>
 <ion-content class="ion-margin">
   <div class="table-box">
     <ion-grid class="ion-margin scroll-lateral col s4 offset-s4 card">
       <ion-row>
-        <ion-col class="head" size="12">Pacientes
+        <ion-col class="head" size="12"><h1>Pacientes</h1> 
           <ion-button class="btnCadastrar" 
-            (click)="openPacienteModal()" 
-            color="dark">Cadastrar Paciente</ion-button>
+          (click)="openPacienteModal()" 
+          color="dark">Cadastrar Paciente</ion-button>
         </ion-col>
       </ion-row>
       <ion-row class="head-table">
         <ion-col size="4.2">Nome</ion-col>
-        <ion-col size="2">Idade</ion-col>
+        <ion-col size="1.5">Idade</ion-col>
         <ion-col size="2">Celular</ion-col>
         <ion-col size="2.3">CNS</ion-col>
-        <ion-col size="1.5" style="text-align: center;"> 
+        <ion-col size="2" style="text-align: center;"> 
           <ion-icon class="icon-update" name="create-outline"></ion-icon>
         </ion-col>
       </ion-row>
-      <ion-row *ngFor="let paciente of pacientes; index as i" style="display: flex;">
+      <ion-row *ngFor="let paciente of filteredPacientes | paginate: { itemsPerPage: 10, currentPage: p }; index as i" 
+        style="display: flex; background-color: #1F1F1F;" >
         <ion-col size="4.2">{{ paciente.nome }}</ion-col>
-        <ion-col size="2">{{ paciente.dataNascimento }}</ion-col>
+        <ion-col size="1.5">{{ paciente.dataNascimento }}</ion-col>
         <ion-col size="2" >{{ paciente.celular }}</ion-col>
         <ion-col size="2.3">{{ paciente.cns }}</ion-col>
-        <ion-col size="1.5" class="col-update ion-align-items-center">
+        <ion-col size="2" class="col-update ion-align-items-center">
           <ion-button class="btnsUpdate" (click)="openPacienteModal(paciente)">
             <ion-icon class="icon-update " name="create-outline"></ion-icon>
           </ion-button>
           <ion-button class="btnsUpdate" (click)="deletePaciente(i)">
             <ion-icon class="icon-delete " name="trash-outline"></ion-icon>
           </ion-button>
+          <ion-button class="btnsUpdate" (click)="deletePaciente(i)">
+            <ion-icon class="icon-procedimento" name="folder-open-outline"></ion-icon>
+          </ion-button>
         </ion-col>
       </ion-row>
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
     </ion-grid>
   </div>
 

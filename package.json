@@ -24,6 +24,7 @@
     "ionic-input-mask": "^1.0.1",
     "ionicons": "^6.0.3",
     "ngx-mask": "^15.1.0",
+    "ngx-pagination": "^6.0.3",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

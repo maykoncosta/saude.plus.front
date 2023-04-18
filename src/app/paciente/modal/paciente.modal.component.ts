@@ -41,9 +41,9 @@ export class PacientesModalComponent implements OnInit {
     ) {
       this.form = new FormGroup({
         nome: new FormControl('', Validators.required),
-        dataNascimento: new FormControl('', Validators.required),
-        celular: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(16)]),
-        cns: new FormControl('', [Validators.required, Validators.minLength(15), Validators.maxLength(15)]),
+        dataNascimento: new FormControl(''),
+        celular: new FormControl('', Validators.required,),
+        cns: new FormControl('', [Validators.required, Validators.minLength(15), Validators.maxLength(19)]),
       });
     }
 
@@ -65,6 +65,7 @@ export class PacientesModalComponent implements OnInit {
     console.log(this.form.value.dataNascimento);
     if (this.form.valid) {
       const formData = this.form.value;
+      console.log(this.form);
   
       if (this.paciente) {
         // Atualizar paciente existente
@@ -80,7 +81,7 @@ export class PacientesModalComponent implements OnInit {
   
       this.ionModalController.dismiss({ data: this.paciente });
     } else {
-      console.log('não valido');
+      console.log('não valido', this.form);
       // Lidar com a situação em que o formulário é inválido
     }
     this.ionModalController.dismiss({ data: this.paciente });
@@ -127,6 +128,9 @@ export class PacientesModalComponent implements OnInit {
   }
 
   private convertDateFormat(dateStr: String): String {
+      if(!dateStr){
+        return '';
+      }
     const dateParts = dateStr.split('/');
     return `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
   }

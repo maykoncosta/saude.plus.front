@@ -19,7 +19,9 @@ export class PacientesComponent implements OnInit {
   cns!: Number;
   fotoPaciente!: string;
   exibirModal = false;
-
+  filteredPacientes: Paciente[] = [];
+  searchTerm = '';
+  p: number = 1;
   @ViewChild(IonModal) modal!: IonModal;
 
   constructor(private pacienteService: PacienteService, private modalController: ModalController) { }
@@ -46,6 +48,7 @@ export class PacientesComponent implements OnInit {
     this.pacienteService.getPacientes().subscribe(pacientes => {
       console.log(pacientes);
       this.pacientes = pacientes;
+      this.filteredPacientes = pacientes;
     });
   }
 
@@ -73,10 +76,17 @@ export class PacientesComponent implements OnInit {
       this.pacientes.splice(index, 1);
     });
   }
+  filterPacientes() {
+    this.filteredPacientes = this.pacientes.filter(
+      (paciente: any) =>
+        paciente.nome.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        paciente.celular.includes(this.searchTerm) ||
+        paciente.cns.includes(this.searchTerm)
+    );
+    if(!this.filteredPacientes){
+      this.filteredPacientes = this.pacientes;
+    }
+    console.log(this.filteredPacientes);
+  }
 
-  //  filtro(event: Event) {
-  //    const filterValue = (event.target as HTMLInputElement).value;
-  //    console.log(filterValue);
-  //    this.dataSource.filter = filterValue.trim().toLowerCase();
-  //  }
 }

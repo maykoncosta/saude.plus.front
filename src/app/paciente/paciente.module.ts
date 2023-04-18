@@ -12,6 +12,7 @@ import { NgxMaskPipe } from 'ngx-mask';
 import { NgxMaskDirective } from 'ngx-mask';
 import { provideNgxMask } from 'ngx-mask';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     NgxMaskPipe,
     NgxMaskDirective,
     ReactiveFormsModule,
+    NgxPaginationModule,
   ],
   declarations: [PacientesComponent, PacientesModalComponent],
   exports: [PacientesComponent, PacientesModalComponent],

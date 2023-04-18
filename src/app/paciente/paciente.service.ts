@@ -47,7 +47,7 @@ export class PacienteService {
   }
 
   updatePaciente(paciente: any) {
-    return this.http.put(`${this.apiUrl}/pacientes/${paciente.id}`, paciente);
+    return this.http.put(`${this.apiUrl}/pacientes/`, paciente);
   }
 
   deletePaciente(id: number) {
