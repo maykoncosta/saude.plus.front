@@ -12,14 +12,6 @@ export class ProcedimentoPage implements OnInit {
   constructor(private procedimentoService: ProcedimentoService) { }
 
   ngOnInit() {
-    this.obterTodosPacientes();
-  }
-
-  obterTodosPacientes(){
-    this.procedimentoService.getProcedimentos().subscribe(procedimentos => {
-      console.log(procedimentos);
-      this.procedimentos = procedimentos;
-    });
   }
 
 }

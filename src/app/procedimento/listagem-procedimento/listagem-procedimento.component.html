@@ -2,25 +2,34 @@
   <div class="table-box">
     <ion-grid  class="ion-margin scroll-lateral col s4 offset-s4 card">
       <ion-row>
-        <ion-col class="head" size="12">Próximos procedimentos </ion-col>
+        <ion-col class="head" size="12"><h1>Próximos Procedimentos</h1></ion-col>
       </ion-row>
       <ion-row class="head-table">
-        <ion-col size="4">Nome</ion-col>
+        <ion-col size="3.3">Nome</ion-col>
         <ion-col size="1.5">Data</ion-col>
         <ion-col size="">Local</ion-col>
         <ion-col size="">Especialidade</ion-col>
         <ion-col size="1.5">Tipo</ion-col>
-        <ion-col size="1" style="text-align: center;"> + </ion-col>
+        <ion-col size="1.7" style="text-align: center;"> 
+          <ion-icon class="icon-update" name="create-outline"></ion-icon>
+        </ion-col>
       </ion-row>
-      <ion-row  *ngFor="let procedimento of procedimentos; index as i">
-        <ion-col size="4">{{ procedimento.nome }}</ion-col>
+      <ion-row  *ngFor="let procedimento of procedimentos; index as i"
+      style="display: flex; background-color: #1F1F1F;">
+        <ion-col size="3.3">{{ procedimento.nome }}</ion-col>
         <ion-col size="1.5">{{ procedimento.dataRealizacao }}</ion-col>
         <ion-col >{{ procedimento.local }}</ion-col>
         <ion-col> {{ procedimento.especialidade }}</ion-col>
         <ion-col size="1.5">{{ procedimento.tipo }}</ion-col>
-        <ion-col size="1">
-          <ion-button fill="clear" class="btn-update" >
-            <ion-icon class="icon-update" name="create-outline"></ion-icon>
+        <ion-col size="1.7" class="col-update ion-align-items-center">
+          <ion-button class="btnsUpdate">
+            <ion-icon class="icon-update" name="add-circle-outline"></ion-icon>
+          </ion-button>
+          <ion-button class="btnsUpdate">
+            <ion-icon class="icon-delete " name="trash-outline"></ion-icon>
+          </ion-button>
+          <ion-button class="btnsUpdate" (click)="openPacienteModal(procedimento.pacienteId)">
+            <ion-icon class="icon-procedimento" name="person-circle-outline"></ion-icon>
           </ion-button>
         </ion-col>
       </ion-row> 

@@ -8,6 +8,7 @@ const routes: Routes = [
     path: '',
     component: ProcedimentoPage
   },
+  { path: 'procedimentos/:pacienteId', component: ProcedimentoPage },
 ];
 
 @NgModule({

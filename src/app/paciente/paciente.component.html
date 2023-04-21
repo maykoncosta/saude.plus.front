@@ -28,7 +28,7 @@
           <ion-icon class="icon-update" name="create-outline"></ion-icon>
         </ion-col>
       </ion-row>
-      <ion-row *ngFor="let paciente of filteredPacientes | paginate: { itemsPerPage: 10, currentPage: p }; index as i" 
+      <ion-row *ngFor="let paciente of filteredPacientes | paginate: { itemsPerPage: 9, currentPage: p }; index as i" 
         style="display: flex; background-color: #1F1F1F;" >
         <ion-col size="4.2">{{ paciente.nome }}</ion-col>
         <ion-col size="1.5">{{ paciente.dataNascimento }}</ion-col>
@@ -41,12 +41,14 @@
           <ion-button class="btnsUpdate" (click)="deletePaciente(i)">
             <ion-icon class="icon-delete " name="trash-outline"></ion-icon>
           </ion-button>
-          <ion-button class="btnsUpdate" (click)="deletePaciente(i)">
+          <ion-button class="btnsUpdate" (click)="navegarParaProcedimentos(paciente.id)">
             <ion-icon class="icon-procedimento" name="folder-open-outline"></ion-icon>
           </ion-button>
         </ion-col>
       </ion-row>
-      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      <div class="pagination">
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </div>
     </ion-grid>
   </div>
 

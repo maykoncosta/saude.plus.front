@@ -3,6 +3,7 @@ import { Paciente } from './paciente.service';
 import { PacienteService } from './paciente.service';
 import { PacientesModalComponent } from './modal/paciente.modal.component';
 import { ModalController, IonModal } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -24,7 +25,9 @@ export class PacientesComponent implements OnInit {
   p: number = 1;
   @ViewChild(IonModal) modal!: IonModal;
 
-  constructor(private pacienteService: PacienteService, private modalController: ModalController) { }
+  constructor(private pacienteService: PacienteService, 
+    private modalController: ModalController,
+    private router: Router) { }
 
   ngOnInit() {
     this.obterTodosPacientes();
@@ -65,7 +68,7 @@ export class PacientesComponent implements OnInit {
     const { data } = await modal.onDidDismiss();
 
     if (data) {
-      this.obterTodosPacientes();
+      await this.obterTodosPacientes();
     }
   }
 
@@ -80,13 +83,17 @@ export class PacientesComponent implements OnInit {
     this.filteredPacientes = this.pacientes.filter(
       (paciente: any) =>
         paciente.nome.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        paciente.celular.includes(this.searchTerm) ||
-        paciente.cns.includes(this.searchTerm)
+        paciente.celular.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        paciente.cns.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
     if(!this.filteredPacientes){
       this.filteredPacientes = this.pacientes;
     }
     console.log(this.filteredPacientes);
+  }
+
+  navegarParaProcedimentos(pacienteId: number) {
+    this.router.navigate(['/procedimentos', pacienteId]);
   }
 
 }

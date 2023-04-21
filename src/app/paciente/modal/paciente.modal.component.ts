@@ -16,7 +16,6 @@ export class PacientesModalComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'name', 'age', 'phone', 'cns'];
   pacientes: any = [];
-  dataSource: any;
   pacienteNew: Paciente = new Paciente();
 
   dateMask: string = '00/00/0000';
@@ -65,7 +64,6 @@ export class PacientesModalComponent implements OnInit {
     console.log(this.form.value.dataNascimento);
     if (this.form.valid) {
       const formData = this.form.value;
-      console.log(this.form);
   
       if (this.paciente) {
         // Atualizar paciente existente

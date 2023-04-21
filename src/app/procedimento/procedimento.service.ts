@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 
 export class Procedimento {
   id!: number;
+  pacienteId!: number;
   nome!: string;
   dataRealizacao!: string;
   local!: string;
@@ -21,20 +22,38 @@ export class ProcedimentoService {
 
   constructor(private http: HttpClient) { }
 
-  getProcedimentos(): Observable<Procedimento[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/procedimentos`)
+  getProcedimentos(idPaciente: number): Observable<Procedimento[]> {
+    if(idPaciente === undefined){
+      return this.http.get<any[]>(`${this.apiUrl}/procedimentos`)
       .pipe(
         map(procedimentosJson => procedimentosJson.map(p => {
           return {
             id: p.id,
+            pacienteId: p.pacienteId,
             nome: p.pacienteNome,
-            dataRealizacao:  p.dataRealizacao[2]+ '/' + p.dataRealizacao[1] + '/' + p.dataRealizacao[0],
+            dataRealizacao:  p.dataRealizacao,
             local: p.local,
             tipo: p.tipo,
             especialidade: p.especialidade
           };
         }))
       );
+    }else{
+      return this.http.get<any[]>(`${this.apiUrl}/procedimentos/paciente/${idPaciente}`)
+      .pipe(
+        map(procedimentosJson => procedimentosJson.map(p => {
+          return {
+            id: p.id,
+            pacienteId: p.pacienteId,
+            nome: p.pacienteNome,
+            dataRealizacao:  p.dataRealizacao,
+            local: p.local,
+            tipo: p.tipo,
+            especialidade: p.especialidade
+          };
+        }))
+      );
+    }
   }
 
   getProcedimento(id: number) {
