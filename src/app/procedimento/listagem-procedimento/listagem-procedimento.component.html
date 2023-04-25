@@ -9,8 +9,8 @@
         <ion-col size="1.5">Data</ion-col>
         <ion-col size="">Local</ion-col>
         <ion-col size="">Especialidade</ion-col>
-        <ion-col size="1.5">Tipo</ion-col>
-        <ion-col size="1.7" style="text-align: center;"> 
+        <ion-col size="1.3">Tipo</ion-col>
+        <ion-col size="2" style="text-align: center;"> 
           <ion-icon class="icon-update" name="create-outline"></ion-icon>
         </ion-col>
       </ion-row>
@@ -20,19 +20,31 @@
         <ion-col size="1.5">{{ procedimento.dataRealizacao }}</ion-col>
         <ion-col >{{ procedimento.local }}</ion-col>
         <ion-col> {{ procedimento.especialidade }}</ion-col>
-        <ion-col size="1.5">{{ procedimento.tipo }}</ion-col>
-        <ion-col size="1.7" class="col-update ion-align-items-center">
-          <ion-button class="btnsUpdate">
+        <ion-col size="1.3">{{ procedimento.tipo }}</ion-col>
+        <ion-col size="2" class="col-update ion-align-items-center">
+          <ion-button class="btnsUpdate" (click)="abrirModalProcedimento(procedimento)">
             <ion-icon class="icon-update" name="add-circle-outline"></ion-icon>
           </ion-button>
-          <ion-button class="btnsUpdate">
+          <ion-button class="btnsUpdate" (click)="deletarProcedimento(i)">
             <ion-icon class="icon-delete " name="trash-outline"></ion-icon>
           </ion-button>
           <ion-button class="btnsUpdate" (click)="openPacienteModal(procedimento.pacienteId)">
             <ion-icon class="icon-procedimento" name="person-circle-outline"></ion-icon>
           </ion-button>
+          <ion-button class="btnsUpdate" (click)="abrirModalProcedimentoNovo(procedimento.pacienteId)">
+            <ion-icon class="icon-procedimento" name="add-circle-outline"></ion-icon>
+          </ion-button>
         </ion-col>
       </ion-row> 
+      <div id="aviso" *ngIf="naoPossuiProcedimentos">
+        <h2>O paciente não possui procedimentos. Deseja criar?</h2>       
+        <ion-button color="dark" (click)="abrirModalProcedimento()">
+          Criar
+        </ion-button>
+        <ion-button color="dark" (click)="voltarParaPacientes()">
+          Voltar
+        </ion-button>
+      </div>
     </ion-grid>
   </div>
   </ion-content>

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -8,6 +8,8 @@ import { ProcedimentoPageRoutingModule } from './procedimento-routing.module';
 
 import { ProcedimentoPage } from './procedimento.page';
 import { ListagemProcedimentoComponent } from './listagem-procedimento/listagem-procedimento.component';
+import { ProcedimentoModalComponent } from './procedimento-modal/procedimento-modal.component';
+
 
 @NgModule({
   imports: [
@@ -15,8 +17,9 @@ import { ListagemProcedimentoComponent } from './listagem-procedimento/listagem-
     FormsModule,
     IonicModule,
     ProcedimentoPageRoutingModule,
+    ReactiveFormsModule
   ],
-  declarations: [ProcedimentoPage, ListagemProcedimentoComponent],
+  declarations: [ProcedimentoPage, ListagemProcedimentoComponent, ProcedimentoModalComponent],
   exports: [ListagemProcedimentoComponent, ProcedimentoPage]
 })
 export class ProcedimentoPageModule {}

@@ -28,7 +28,7 @@
           <ion-icon class="icon-update" name="create-outline"></ion-icon>
         </ion-col>
       </ion-row>
-      <ion-row *ngFor="let paciente of filteredPacientes | paginate: { itemsPerPage: 9, currentPage: p }; index as i" 
+      <ion-row *ngFor="let paciente of filteredPacientes | paginate: { itemsPerPage: 9, currentPage: page }; index as i" 
         style="display: flex; background-color: #1F1F1F;" >
         <ion-col size="4.2">{{ paciente.nome }}</ion-col>
         <ion-col size="1.5">{{ paciente.dataNascimento }}</ion-col>
@@ -47,7 +47,7 @@
         </ion-col>
       </ion-row>
       <div class="pagination">
-        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        <pagination-controls (pageChange)="page = $event"></pagination-controls>
       </div>
     </ion-grid>
   </div>

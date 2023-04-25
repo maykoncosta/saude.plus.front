@@ -43,6 +43,16 @@ ion-grid {
     .col-update, .icon-delete{
       padding: 0;
     }
+
+    #aviso{
+      display: grid;
+      background-color: #989AA2;
+
+      h2{
+        color: black;
+        margin-left: 10px;
+      }
+    }
   }
   .table-box{
     
@@ -65,4 +75,3 @@ ion-grid {
     width: 30px;
     font-size: 180%;
   }
-

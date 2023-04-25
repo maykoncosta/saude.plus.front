@@ -3,8 +3,8 @@ import { Procedimento, ProcedimentoService } from '../procedimento.service';
 import { Paciente } from 'src/app/paciente/paciente.service';
 import { PacienteService } from 'src/app/paciente/paciente.service';
 import { PacientesModalComponent } from 'src/app/paciente/modal/paciente.modal.component';
-import { ModalController } from '@ionic/angular';
-import { ActivatedRoute } from '@angular/router';
+import { ModalController, ActionSheetController } from '@ionic/angular';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProcedimentoModalComponent } from '../procedimento-modal/procedimento-modal.component';
 
 @Component({
@@ -13,30 +13,35 @@ import { ProcedimentoModalComponent } from '../procedimento-modal/procedimento-m
   styleUrls: ['./listagem-procedimento.component.scss'],
 })
 export class ListagemProcedimentoComponent  implements OnInit {
-
-  procedimentos:any;
+  procedimentos: Procedimento[] = [];
   pacienteEdit!: any;
   paciente: Paciente = new Paciente();
   pacienteId: any;
+  naoPossuiProcedimentos: boolean = false;
 
   constructor(private procedimentoService: ProcedimentoService,
     private pacienteService: PacienteService,
     private modalController: ModalController,
+    private router: Router,
     private route: ActivatedRoute) {
       this.route.params.subscribe((params) => {
         this.pacienteId = params['pacienteId'];
       });
     }
 
-  ngOnInit() {
-    this.obterTodosPacientes();
+  async ngOnInit() {
+    await this.obterTodosPacientes();
   }
 
-  obterTodosPacientes(){
+  async obterTodosPacientes(){
     this.procedimentoService.getProcedimentos(this.pacienteId).subscribe(procedimentos => {
-      console.log(procedimentos);
+      console.log('listagem');
       this.procedimentos = procedimentos;
+      if(this.procedimentos.length == 0){
+        this.naoPossuiProcedimentos = true;
+      }
     });
+    
   }
 
   async obterPacientePorId(id: number): Promise<any> {
@@ -79,10 +84,14 @@ export class ListagemProcedimentoComponent  implements OnInit {
   }
 
   async abrirModalProcedimento(procedimento?: Procedimento) {
+    if(procedimento){
+      this.pacienteId = procedimento.pacienteId;
+    }
     const modal = await this.modalController.create({
       component: ProcedimentoModalComponent,
       componentProps: {
-        procedimento: procedimento
+        procedimento: procedimento,
+        paciente: await this.obterPacientePorId(this.pacienteId),
       },
       cssClass: 'custom-modal',
     });
@@ -93,6 +102,35 @@ export class ListagemProcedimentoComponent  implements OnInit {
     if (data) {
       await this.obterTodosPacientes();
     }
+  }
+
+  async abrirModalProcedimentoNovo(idPaciente?: number) {
+    const modal = await this.modalController.create({
+      component: ProcedimentoModalComponent,
+      componentProps: {
+        paciente: await this.obterPacientePorId(this.pacienteId),
+      },
+      cssClass: 'custom-modal',
+    });
+    await modal.present();
+    
+    const { data } = await modal.onDidDismiss();
+
+    if (data) {
+      await this.obterTodosPacientes();
+    }
+  }
+
+  voltarParaPacientes() {
+    this.router.navigate(['/pacientes']);
+  }
+
+  deletarProcedimento(index:number){
+    const procedimento = this.procedimentos[index];
+
+    this.procedimentoService.deleteProcedimento(procedimento.id).subscribe(() => {
+      this.procedimentos.splice(index, 1);
+    });
   }
 
 }

@@ -1,3 +1,49 @@
-<p>
-  procedimento-modal works!
-</p>
+
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-nav-link router-direction="" [component]="paciente">
+        <ion-button class="btnHeader" (click)="cancelar()">
+          Cancelar
+        </ion-button>
+      </ion-nav-link>
+    </ion-buttons>
+    <ion-title class="title">CADASTRAR PROCEDIMENTO</ion-title>
+    <ion-buttons slot="end">
+      <ion-button class="btnHeader" (click)="salvar()" [strong]="true">Salvar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <form [formGroup]="form">
+    <ion-item>
+      <ion-label position="floating">Nome</ion-label>
+      <ion-input [disabled]="true"formControlName="nome"></ion-input>
+    </ion-item>
+    <ion-item class="datetime-centered">
+      <ion-label position="floating">Data de Realizacao</ion-label>
+      <ion-datetime
+        size="cover"
+        minuteValues="00,30"
+        displayFormat="DD/MM/YYYY HH-mm"
+        formControlName="dataRealizacao"
+      ></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Local</ion-label>
+      <ion-input formControlName="local"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Especialidade</ion-label>
+      <ion-input formControlName="especialidade"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Tipo</ion-label>
+      <ion-select  interface="popover"
+       (ionChange)="handleChange($event)"
+      formControlName="tipo">
+      <ion-select-option *ngFor="let tip of tiposProcedimento" [value]="tip">{{ tip }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </form>
+</ion-content>

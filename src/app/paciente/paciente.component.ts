@@ -22,7 +22,7 @@ export class PacientesComponent implements OnInit {
   exibirModal = false;
   filteredPacientes: Paciente[] = [];
   searchTerm = '';
-  p: number = 1;
+  page: number = 1;
   @ViewChild(IonModal) modal!: IonModal;
 
   constructor(private pacienteService: PacienteService, 
@@ -79,6 +79,7 @@ export class PacientesComponent implements OnInit {
       this.pacientes.splice(index, 1);
     });
   }
+
   filterPacientes() {
     this.filteredPacientes = this.pacientes.filter(
       (paciente: any) =>
@@ -86,6 +87,7 @@ export class PacientesComponent implements OnInit {
         paciente.celular.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
         paciente.cns.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
+    this.page = 1;
     if(!this.filteredPacientes){
       this.filteredPacientes = this.pacientes;
     }
