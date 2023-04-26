@@ -49,7 +49,6 @@ export class PacientesComponent implements OnInit {
 
   obterTodosPacientes() {
     this.pacienteService.getPacientes().subscribe(pacientes => {
-      console.log(pacientes);
       this.pacientes = pacientes;
       this.filteredPacientes = pacientes;
     });
@@ -91,7 +90,6 @@ export class PacientesComponent implements OnInit {
     if(!this.filteredPacientes){
       this.filteredPacientes = this.pacientes;
     }
-    console.log(this.filteredPacientes);
   }
 
   navegarParaProcedimentos(pacienteId: number) {

@@ -48,11 +48,9 @@ export class PacientesModalComponent implements OnInit {
 
   ngOnInit() {
     if (this.paciente) {
-      console.log(this.paciente);
       this.setFormValues(this.paciente);
       this.classCns = 'item-has-focus';
       this.classVariable = 'item-has-focus';
-      console.log(this.form.value);
     }
   }
 
@@ -61,7 +59,6 @@ export class PacientesModalComponent implements OnInit {
   }
 
   salvar() {
-    console.log(this.form.value.dataNascimento);
     if (this.form.valid) {
       const formData = this.form.value;
   
@@ -116,7 +113,6 @@ export class PacientesModalComponent implements OnInit {
   }
 
   private setFormValues(paciente: any) {
-    console.log(this.convertDateFormat(paciente.dataNascimento));
     this.form.patchValue({
       nome: paciente.nome,
       dataNascimento: this.convertDateFormat(paciente.dataNascimento),

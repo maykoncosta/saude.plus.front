@@ -18,6 +18,7 @@ export class ListagemProcedimentoComponent  implements OnInit {
   paciente: Paciente = new Paciente();
   pacienteId: any;
   naoPossuiProcedimentos: boolean = false;
+  page: number = 1;
 
   constructor(private procedimentoService: ProcedimentoService,
     private pacienteService: PacienteService,
@@ -35,7 +36,6 @@ export class ListagemProcedimentoComponent  implements OnInit {
 
   async obterTodosPacientes(){
     this.procedimentoService.getProcedimentos(this.pacienteId).subscribe(procedimentos => {
-      console.log('listagem');
       this.procedimentos = procedimentos;
       if(this.procedimentos.length == 0){
         this.naoPossuiProcedimentos = true;

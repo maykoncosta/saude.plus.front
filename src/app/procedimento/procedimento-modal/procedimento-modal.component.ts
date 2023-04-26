@@ -51,7 +51,6 @@ export class ProcedimentoModalComponent  implements OnInit {
   async salvar() {
     if (this.form.valid) {
       const formData = this.form.value;
-      console.log(this.procedimento);
       if (this.procedimento?.id) {
         // Atualizar paciente existente
         this.procedimento.dataRealizacao = formData.dataRealizacao;

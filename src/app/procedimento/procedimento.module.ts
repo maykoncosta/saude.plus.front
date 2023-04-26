@@ -10,6 +10,7 @@ import { ProcedimentoPage } from './procedimento.page';
 import { ListagemProcedimentoComponent } from './listagem-procedimento/listagem-procedimento.component';
 import { ProcedimentoModalComponent } from './procedimento-modal/procedimento-modal.component';
 
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { ProcedimentoModalComponent } from './procedimento-modal/procedimento-mo
     FormsModule,
     IonicModule,
     ProcedimentoPageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxPaginationModule
   ],
   declarations: [ProcedimentoPage, ListagemProcedimentoComponent, ProcedimentoModalComponent],
   exports: [ListagemProcedimentoComponent, ProcedimentoPage]
