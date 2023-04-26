@@ -1,5 +1,5 @@
 <ion-content class="ion-margin">
-  <div class="table-box">
+  <div class="table-box" style="background-color: #d1d4e2;">
     <ion-grid  class="ion-margin scroll-lateral col s4 offset-s4 card">
       <ion-row>
         <ion-col class="head" size="12"><h1>Próximos Procedimentos</h1></ion-col>
@@ -15,7 +15,7 @@
         </ion-col>
       </ion-row>
       <ion-row  *ngFor="let procedimento of procedimentos; index as i"
-      style="display: flex; background-color: #1F1F1F;">
+      style="display: flex; background-color: #989aa2;">
         <ion-col size="3.3">{{ procedimento.nome }}</ion-col>
         <ion-col size="1.5">{{ procedimento.dataRealizacao }}</ion-col>
         <ion-col >{{ procedimento.local }}</ion-col>
