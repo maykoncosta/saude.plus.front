@@ -23,7 +23,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     NgxMaskPipe,
     NgxMaskDirective,
     ReactiveFormsModule,
-    NgxPaginationModule,
+    NgxPaginationModule
   ],
   declarations: [PacientesComponent, PacientesModalComponent],
   exports: [PacientesComponent, PacientesModalComponent],

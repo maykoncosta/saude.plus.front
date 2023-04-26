@@ -74,7 +74,7 @@ export class PacientesComponent implements OnInit {
 
   deletePaciente(index: number) {
     const paciente = this.pacientes[index];
-
+  
     this.pacienteService.deletePaciente(paciente.id).subscribe(() => {
       this.pacientes.splice(index, 1);
     });
