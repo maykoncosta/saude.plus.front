@@ -2,7 +2,7 @@
   <ion-toolbar class="header">
     <ion-row style="background-color: #d3e2fd;" >
       <ion-col class="head" style="display: flex;" size="">
-        <ion-title> PACIENTES </ion-title>
+        <ion-title style="color: black;"> PACIENTES </ion-title>
         <ion-searchbar color="medium" placeholder="Buscar Paciente"
           [(ngModel)]="searchTerm" (ionChange)="filterPacientes()"></ion-searchbar>
       </ion-col>
@@ -13,7 +13,7 @@
   <div class="table-box" style="background-color: #d1d4e2;">
     <ion-grid class="ion-margin scroll-lateral col s4 offset-s4 card">
       <ion-row>
-        <ion-col class="head" size="12"><h1>Pacientes</h1> 
+        <ion-col class="head" size="12"><h1 style="color: #d3e2fd">Pacientes</h1> 
           <ion-button class="btnCadastrar" 
           (click)="openPacienteModal()" 
           color="dark">Cadastrar Paciente</ion-button>
@@ -29,7 +29,7 @@
         </ion-col>
       </ion-row>
       <ion-row *ngFor="let paciente of filteredPacientes | paginate: { itemsPerPage: 10, currentPage: page }; index as i" 
-        style="display: flex; background-color: #474e69; color: white;" >
+        style="display: flex; background-color: #474e69; color: #d3e2fd;" >
         <ion-col size="4.2">{{ paciente.nome }}</ion-col>
         <ion-col size="1.5">{{ paciente.dataNascimento }}</ion-col>
         <ion-col size="2" >{{ paciente.celular }}</ion-col>
