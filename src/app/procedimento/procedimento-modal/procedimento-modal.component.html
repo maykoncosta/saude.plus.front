@@ -8,8 +8,11 @@
         </ion-button>
       </ion-nav-link>
     </ion-buttons>
-    <ion-title class="title">CADASTRAR PROCEDIMENTO</ion-title>
-    <ion-buttons slot="end">
+    <ion-title *ngIf="isEditar; else cadastrar" class="title">EDITAR PROCEDIMENTO</ion-title>
+    <ng-template #cadastrar>
+      <ion-title class="title">CADASTRAR PROCEDIMENTO</ion-title>
+    </ng-template>
+      <ion-buttons slot="end">
       <ion-button class="btnHeader" (click)="salvar()" [strong]="true">Salvar</ion-button>
     </ion-buttons>
   </ion-toolbar>

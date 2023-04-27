@@ -22,6 +22,7 @@ export class ProcedimentoModalComponent  implements OnInit {
 
   dateMask: string = '00/00/0000';
   pacienteId!: number;
+  isEditar: boolean = true;
 
   @ViewChild(IonModal) modal!: IonModal;
 
@@ -39,6 +40,7 @@ export class ProcedimentoModalComponent  implements OnInit {
 
   ngOnInit() {
     if(!this.procedimento){
+      this.isEditar = false;
       this.procedimento = new Procedimento;
     }
     this.setFormValues(this.procedimento);

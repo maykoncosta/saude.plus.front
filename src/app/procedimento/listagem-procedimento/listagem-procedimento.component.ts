@@ -104,11 +104,11 @@ export class ListagemProcedimentoComponent  implements OnInit {
     }
   }
 
-  async abrirModalProcedimentoNovo(idPaciente?: number) {
+  async abrirModalProcedimentoNovo(idPaciente: number) {
     const modal = await this.modalController.create({
       component: ProcedimentoModalComponent,
       componentProps: {
-        paciente: await this.obterPacientePorId(this.pacienteId),
+        paciente: await this.obterPacientePorId(idPaciente),
       },
       cssClass: 'custom-modal',
     });
