@@ -4,7 +4,7 @@ import { ProcedimentoService } from '../procedimento.service';
 import { Procedimento } from '../procedimento.service';
 import { IonModal, ModalController } from '@ionic/angular';
 import { Paciente } from 'src/app/paciente/paciente.service';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import * as moment from 'moment';
 
 @Component({
@@ -27,6 +27,7 @@ export class ProcedimentoModalComponent  implements OnInit {
   @ViewChild(IonModal) modal!: IonModal;
 
   constructor(private service: ProcedimentoService,
+    private router: Router,
     private ionModalController: ModalController) {
       this.form = new FormGroup({
         nome: new FormControl('', Validators.required),
@@ -55,6 +56,7 @@ export class ProcedimentoModalComponent  implements OnInit {
       const formData = this.form.value;
       if (this.procedimento?.id) {
         // Atualizar paciente existente
+        console.log(formData);
         this.procedimento.dataRealizacao = formData.dataRealizacao;
         this.procedimento.especialidade = formData.especialidade;
         this.procedimento.local = formData.local;
@@ -92,7 +94,6 @@ export class ProcedimentoModalComponent  implements OnInit {
     this.service.updateProcedimento(procedimento).subscribe(
       res => {
         console.log("sucesso");
-        console.log(res);
         // this.displayMessage('Patient updated successfully.');
       },
       err => {
@@ -118,8 +119,8 @@ export class ProcedimentoModalComponent  implements OnInit {
       if(!dateStr){
         return '';
       }
-      const dataHoraMoment = moment(dateStr, 'DD/MM/YYYY HH:mm');
-      return dataHoraMoment.format('YYYY-MM-DDTHH:mm');;
+      const dataHoraMoment = moment(dateStr, 'DD/MM/YYYY');
+      return dataHoraMoment.format('YYYY-MM-DD');
   }
 
   handleChange(ev:any) {
