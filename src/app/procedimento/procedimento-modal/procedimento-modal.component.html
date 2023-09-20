@@ -23,15 +23,6 @@
       <ion-label position="floating">Nome</ion-label>
       <ion-input [disabled]="true"formControlName="nome"></ion-input>
     </ion-item>
-    <ion-item class="datetime-centered">
-      <ion-label position="floating">Data de Realizacao</ion-label>
-      <ion-datetime
-        size="cover"
-        presentation="date"
-        displayFormat="YYYY/MM/DD"
-        formControlName="dataRealizacao"
-      ></ion-datetime>
-    </ion-item>
     <ion-item>
       <ion-label position="floating">Local</ion-label>
       <ion-input formControlName="local"></ion-input>
@@ -47,6 +38,10 @@
       formControlName="tipo">
       <ion-select-option *ngFor="let tip of tiposProcedimento" [value]="tip">{{ tip }}</ion-select-option>
       </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Observação</ion-label>
+      <ion-input formControlName="observacao"></ion-input>
     </ion-item>
   </form>
 </ion-content>

@@ -31,9 +31,9 @@ export class ProcedimentoModalComponent  implements OnInit {
     private ionModalController: ModalController) {
       this.form = new FormGroup({
         nome: new FormControl('', Validators.required),
-        dataRealizacao: new FormControl(''),
+        observacao: new FormControl(''),
         tipo: new FormControl('', Validators.required,),
-        local: new FormControl('', Validators.required),
+        local: new FormControl(''),
         especialidade: new FormControl(''),
         pacienteId: new FormControl(''),
       });
@@ -44,6 +44,7 @@ export class ProcedimentoModalComponent  implements OnInit {
       this.isEditar = false;
       this.procedimento = new Procedimento;
     }
+    console.log(this.procedimento);
     this.setFormValues(this.procedimento);
   }
 
@@ -57,7 +58,7 @@ export class ProcedimentoModalComponent  implements OnInit {
       if (this.procedimento?.id) {
         // Atualizar paciente existente
         console.log(formData);
-        this.procedimento.dataRealizacao = formData.dataRealizacao;
+        this.procedimento.observacao= formData.observacao;
         this.procedimento.especialidade = formData.especialidade;
         this.procedimento.local = formData.local;
         this.procedimento.tipo = formData.tipo;
@@ -107,20 +108,12 @@ export class ProcedimentoModalComponent  implements OnInit {
   private setFormValues(procedimento: any) {
     this.form.patchValue({
       nome: this.paciente?.nome,
-      dataRealizacao: this.convertDateFormat(procedimento?.dataRealizacao),
+      observacao: procedimento?.observacao,
       local: procedimento?.local,
       especialidade: procedimento?.especialidade,
       tipo: procedimento?.tipo,
       pacienteId: this.paciente?.id,
     });
-  }
-
-  private convertDateFormat(dateStr: string): String {
-      if(!dateStr){
-        return '';
-      }
-      const dataHoraMoment = moment(dateStr, 'DD/MM/YYYY');
-      return dataHoraMoment.format('YYYY-MM-DD');
   }
 
   handleChange(ev:any) {
