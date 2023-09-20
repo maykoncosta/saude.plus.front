@@ -10,7 +10,7 @@ export class Paciente {
     dataNascimento!: String;
     celular!: string;
     cns!: Number;
-    fotoPaciente!: string;
+    observacao!: string;
   }
 
 @Injectable({
@@ -32,7 +32,7 @@ export class PacienteService {
             dataNascimento: p.dataNascimento,
             celular: p.celular,
             cns: p.cns,
-            fotoPaciente: p.fotoPaciente
+            observacao: p.observacao
           };
         }))
       );

@@ -14,7 +14,7 @@ export class PacientesModalComponent implements OnInit {
   form: FormGroup;
   @Input() paciente: Paciente | null = null;
 
-  displayedColumns: string[] = ['id', 'name', 'age', 'phone', 'cns'];
+  displayedColumns: string[] = ['id', 'name', 'obs', 'phone', 'cns'];
   pacientes: any = [];
   pacienteNew: Paciente = new Paciente();
 
@@ -41,7 +41,8 @@ export class PacientesModalComponent implements OnInit {
       this.form = new FormGroup({
         nome: new FormControl('', Validators.required),
         dataNascimento: new FormControl(''),
-        celular: new FormControl('', Validators.required,),
+        observacao: new FormControl(''),
+        celular: new FormControl(''),
         cns: new FormControl('', [Validators.required, Validators.minLength(15), Validators.maxLength(19)]),
       });
     }
@@ -68,6 +69,7 @@ export class PacientesModalComponent implements OnInit {
         this.paciente.dataNascimento = formData.dataNascimento;
         this.paciente.celular = formData.celular;
         this.paciente.cns = formData.cns;
+        this.paciente.observacao = formData.observacao;
         this.atualizarPaciente(this.paciente);
       } else {
         // Criar novo paciente

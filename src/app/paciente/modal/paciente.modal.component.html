@@ -26,6 +26,7 @@
             size="cover"
               presentation="date"
               displayFormat="DD/MM/YYYY"
+              [preferWheel]="true"
               formControlName="dataNascimento"
             ></ion-datetime>
           </ion-item>
@@ -46,7 +47,7 @@
           </ion-item>
           <ion-item>
             <ion-label position="floating">Observação</ion-label>
-            <ion-input formControlName="obs"></ion-input>
+            <ion-input formControlName="observacao"></ion-input>
           </ion-item>
         </form>
       </ion-content>
