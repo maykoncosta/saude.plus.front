@@ -43,7 +43,7 @@ export class PacientesModalComponent implements OnInit {
         dataNascimento: new FormControl(''),
         observacao: new FormControl(''),
         celular: new FormControl(''),
-        cns: new FormControl('', [Validators.required, Validators.minLength(15), Validators.maxLength(19)]),
+        cns: new FormControl('', [Validators.required, Validators.minLength(12), Validators.maxLength(19)]),
       });
     }
 

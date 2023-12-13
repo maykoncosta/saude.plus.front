@@ -3,28 +3,33 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 import { PacientesModalComponent } from './paciente/modal/paciente.modal.component';
 import { PacientesComponent } from './paciente/paciente.component';
+import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
-  {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+  { 
+    path: 'login', 
+    component: LoginComponent 
   },
   {
-    path: '',
+    path: '**',
     redirectTo: 'pacientes',
     pathMatch: 'full'
   },
   {
     path: 'cadastrar',
-    component: PacientesModalComponent
+    component: PacientesModalComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'pacientes',
-    component: PacientesComponent
+    component: PacientesComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path: 'procedimento',
-    loadChildren: () => import('./procedimento/procedimento.module').then( m => m.ProcedimentoPageModule)
+    path: 'procedimentos',
+    loadChildren: () => import('./procedimento/procedimento.module').then( m => m.ProcedimentoPageModule),
+    canActivate: [AuthGuard]
   }
 ];
 
