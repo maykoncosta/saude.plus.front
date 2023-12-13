@@ -44,7 +44,6 @@ export class ProcedimentoModalComponent  implements OnInit {
       this.isEditar = false;
       this.procedimento = new Procedimento;
     }
-    console.log(this.procedimento);
     this.setFormValues(this.procedimento);
   }
 
@@ -57,7 +56,6 @@ export class ProcedimentoModalComponent  implements OnInit {
       const formData = this.form.value;
       if (this.procedimento?.id) {
         // Atualizar paciente existente
-        console.log(formData);
         this.procedimento.observacao= formData.observacao;
         this.procedimento.especialidade = formData.especialidade;
         this.procedimento.local = formData.local;
