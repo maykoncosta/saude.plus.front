@@ -21,20 +21,20 @@
       </ion-row>
       <ion-row class="head-table">
         <ion-col size="4.2">Nome</ion-col>
-        <ion-col size="1.5">Idade</ion-col>
+        <ion-col size="">Observação</ion-col>
         <ion-col size="2">Celular</ion-col>
         <ion-col size="2.3">CNS</ion-col>
-        <ion-col size="2" style="text-align: center;"> 
+        <ion-col size="1.5" style="text-align: center;"> 
           <ion-icon class="icon-update" name="create-outline"></ion-icon>
         </ion-col>
       </ion-row>
       <ion-row *ngFor="let paciente of filteredPacientes | paginate: { itemsPerPage: 10, currentPage: page }; index as i" 
         style="display: flex; background-color: #474e69; color: #d3e2fd;" >
         <ion-col size="4.2">{{ paciente.nome }}</ion-col>
-        <ion-col size="1.5">{{ paciente.dataNascimento }}</ion-col>
+        <ion-col size="">{{ paciente.observacao }}</ion-col>
         <ion-col size="2" >{{ paciente.celular }}</ion-col>
         <ion-col size="2.3">{{ paciente.cns }}</ion-col>
-        <ion-col size="2" class="col-update ion-align-items-center">
+        <ion-col size="1.5" class="col-update ion-align-items-center">
           <ion-button class="btnsUpdate" (click)="openPacienteModal(paciente)">
             <ion-icon class="icon-update " name="create-outline"></ion-icon>
           </ion-button>

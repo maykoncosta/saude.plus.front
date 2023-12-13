@@ -16,6 +16,7 @@ export class PacientesComponent implements OnInit {
   pacientes!: any;
   dataNascimento!: String;
   nome!: string;
+  observacao!: string;
   celular!: string;
   cns!: Number;
   fotoPaciente!: string;
@@ -43,7 +44,7 @@ export class PacientesComponent implements OnInit {
     this.paciente.dataNascimento = this.dataNascimento;
     this.paciente.celular = this.celular;
     this.paciente.cns = this.cns;
-    this.paciente.fotoPaciente = this.fotoPaciente;
+    this.paciente.observacao = this.observacao;
   }
 
 

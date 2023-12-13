@@ -8,7 +8,7 @@ export class Procedimento {
   id!: number;
   pacienteId!: number;
   nome!: string;
-  dataRealizacao!: string;
+  observacao!: string;
   local!: string;
   tipo!: string;
   especialidade!: string;
@@ -31,7 +31,7 @@ export class ProcedimentoService {
             id: p.id,
             pacienteId: p.pacienteId,
             nome: p.pacienteNome,
-            dataRealizacao:  p.dataRealizacao,
+            observacao:  p.observacao,
             local: p.local,
             tipo: p.tipo,
             especialidade: p.especialidade
@@ -46,7 +46,7 @@ export class ProcedimentoService {
             id: p.id,
             pacienteId: p.pacienteId,
             nome: p.pacienteNome,
-            dataRealizacao:  p.dataRealizacao,
+            observacao:  p.observacao,
             local: p.local,
             tipo: p.tipo,
             especialidade: p.especialidade

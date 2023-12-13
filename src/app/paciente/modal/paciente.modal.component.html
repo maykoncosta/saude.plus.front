@@ -26,6 +26,7 @@
             size="cover"
               presentation="date"
               displayFormat="DD/MM/YYYY"
+              [preferWheel]="true"
               formControlName="dataNascimento"
             ></ion-datetime>
           </ion-item>
@@ -43,6 +44,10 @@
             <input formControlName="cns" class="input-classic" 
               [mask]="cnsMask"
               type="text"/>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Observação</ion-label>
+            <ion-input formControlName="observacao"></ion-input>
           </ion-item>
         </form>
       </ion-content>

@@ -1,0 +1,84 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; // This will take the full height of the screen.
+    background: #f0f7ff; // Replace with the actual color of the page background.
+}
+
+.login-form {
+    border-radius: 40px 40px 1px 1px;
+    background: linear-gradient(180deg, #96A9F8 21.7%, rgba(149, 171, 255, 0.57) 64.17%, rgba(147, 166, 241, 0.00) 100%);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    padding: 2rem;
+    width: 450px;
+    position: relative;
+    height: 350px;
+    margin-bottom: 20px;
+
+
+    &:after {
+        content: '';
+        position: absolute;
+        bottom: -3px; // Adjust the position as needed.
+        left: 50%;
+        transform: translateX(-50%);
+        width: 1000px; // Width of the line.
+        height: 3px; // Height of the line.
+        background: #000; // Color of the line.
+        border-radius: 2px;
+        box-shadow: 0 -2px 4px 1px rgb(24 30 255 / 50%);
+      }
+
+    .input-group {
+        margin-bottom: 1.5rem; // Increase margin for a bigger form.
+
+        input {
+            text-transform: uppercase;
+            border-radius: 40px;
+            font-size: 1.2rem;
+            color: black;
+            background: #DAD7FF;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            padding: 1rem; // Increase padding for larger input fields.
+            transition: background-color 0.2s ease, transform 0.2s ease; // Add transition for smooth effect
+
+            &:hover {
+                background-color: lighten(#DAD7FF, 5%); // Lighten on hover
+                transform: translateY(-2px); // Slightly move up
+            }
+
+            &:focus {
+                outline: none;
+                background-color: #B8B3FF; // A lighter background on focus
+                box-shadow: 0 0 8px 2px rgba(0, 119, 255, 0.5); // A glow effect
+                transform: scale(1.02); // Slightly scale up
+            }
+        }
+    }
+
+    .login-button {
+        border-radius: 40px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        background: linear-gradient(180deg, rgba(115, 170, 255, 0.50) 0%, rgba(115, 170, 255, 0.50) 0.01%, rgba(90, 144, 229, 0.71) 39.17%, rgba(83, 137, 222, 0.77) 50%, rgba(51, 108, 196, 0.76) 100%);
+        width: 100%;
+        margin-top: 25px;
+        padding: 1rem;
+        color: #FFF;
+        font-family: Inter;
+        font-size: 36px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        font-size: 1.2rem; // Increase the font size if needed.
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.2s ease; // Smooth background color change and transform
+
+        &:hover {
+            // Adjust hover effect according to your design needs
+            background-color: darken(#3498db, 10%); // This will darken the button on hover.
+            transform: scale(1.02); // Slightly scale up
+        }
+    }
+}

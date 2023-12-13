@@ -4,7 +4,7 @@ import { ProcedimentoService } from '../procedimento.service';
 import { Procedimento } from '../procedimento.service';
 import { IonModal, ModalController } from '@ionic/angular';
 import { Paciente } from 'src/app/paciente/paciente.service';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import * as moment from 'moment';
 
 @Component({
@@ -27,12 +27,13 @@ export class ProcedimentoModalComponent  implements OnInit {
   @ViewChild(IonModal) modal!: IonModal;
 
   constructor(private service: ProcedimentoService,
+    private router: Router,
     private ionModalController: ModalController) {
       this.form = new FormGroup({
         nome: new FormControl('', Validators.required),
-        dataRealizacao: new FormControl(''),
+        observacao: new FormControl(''),
         tipo: new FormControl('', Validators.required,),
-        local: new FormControl('', Validators.required),
+        local: new FormControl(''),
         especialidade: new FormControl(''),
         pacienteId: new FormControl(''),
       });
@@ -55,7 +56,7 @@ export class ProcedimentoModalComponent  implements OnInit {
       const formData = this.form.value;
       if (this.procedimento?.id) {
         // Atualizar paciente existente
-        this.procedimento.dataRealizacao = formData.dataRealizacao;
+        this.procedimento.observacao= formData.observacao;
         this.procedimento.especialidade = formData.especialidade;
         this.procedimento.local = formData.local;
         this.procedimento.tipo = formData.tipo;
@@ -92,7 +93,6 @@ export class ProcedimentoModalComponent  implements OnInit {
     this.service.updateProcedimento(procedimento).subscribe(
       res => {
         console.log("sucesso");
-        console.log(res);
         // this.displayMessage('Patient updated successfully.');
       },
       err => {
@@ -106,20 +106,12 @@ export class ProcedimentoModalComponent  implements OnInit {
   private setFormValues(procedimento: any) {
     this.form.patchValue({
       nome: this.paciente?.nome,
-      dataRealizacao: this.convertDateFormat(procedimento?.dataRealizacao),
+      observacao: procedimento?.observacao,
       local: procedimento?.local,
       especialidade: procedimento?.especialidade,
       tipo: procedimento?.tipo,
       pacienteId: this.paciente?.id,
     });
-  }
-
-  private convertDateFormat(dateStr: string): String {
-      if(!dateStr){
-        return '';
-      }
-      const dataHoraMoment = moment(dateStr, 'DD/MM/YYYY HH:mm');
-      return dataHoraMoment.format('YYYY-MM-DDTHH:mm');;
   }
 
   handleChange(ev:any) {

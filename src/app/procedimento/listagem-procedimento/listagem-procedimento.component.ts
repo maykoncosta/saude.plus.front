@@ -34,7 +34,10 @@ export class ListagemProcedimentoComponent  implements OnInit {
     await this.obterTodosPacientes();
   }
 
-  async obterTodosPacientes(){
+  async obterTodosPacientes(todos?: any){
+    if(todos){
+      this.pacienteId = undefined;
+    }
     this.procedimentoService.getProcedimentos(this.pacienteId).subscribe(procedimentos => {
       this.procedimentos = procedimentos;
       if(this.procedimentos.length == 0){
