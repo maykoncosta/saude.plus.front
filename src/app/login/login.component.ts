@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
-import { FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -20,6 +20,10 @@ export class LoginComponent {
   constructor(private fb: FormBuilder,
     private authService: AuthService,
     private router: Router) {
+
+    if (authService.isAuthenticated()) {
+      this.router.navigateByUrl('/procedimentos');
+    }
 
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
