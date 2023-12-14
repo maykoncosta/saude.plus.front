@@ -4,6 +4,8 @@ import { PacienteService } from './paciente.service';
 import { PacientesModalComponent } from './modal/paciente.modal.component';
 import { ModalController, IonModal } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { NotificationComponent } from '../notification/notification.component';
+import { NotificationService } from '../notification.service';
 
 
 @Component({

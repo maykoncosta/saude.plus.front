@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NotificationComponent } from './notification.component';
+import { NotificationService } from '../notification.service';
 
 @NgModule({
   imports: [
@@ -9,7 +10,7 @@ import { NotificationComponent } from './notification.component';
     FormsModule,
     ReactiveFormsModule,
   ],
-  declarations: [NotificationComponent],
+  declarations: [NotificationComponent, ],
   exports: [NotificationComponent,],
   providers: []
 })

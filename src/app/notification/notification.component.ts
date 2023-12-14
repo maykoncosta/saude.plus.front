@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NotificationService } from './notification.service';
+import { NotificationService } from '../notification.service';
 
 @Component({
   selector: 'app-notification',
@@ -8,14 +8,17 @@ import { NotificationService } from './notification.service';
 })
 export class NotificationComponent implements OnInit {
   message: string = '';
+  type: 'success' | 'error' = 'success';
 
   constructor(private notificationService: NotificationService) { }
 
   ngOnInit() {
-    this.notificationService.notification$.subscribe(msg => {
-      this.message = msg;
-      // Definir um tempo para a mensagem desaparecer
-      setTimeout(() => this.message = '', 3000);
+    this.notificationService.notification$.subscribe(notification => {
+      if (notification) {
+        this.message = notification.message;
+        this.type = notification.type;
+        setTimeout(() => this.message = '', 3000);
+      }
     });
   }
 }

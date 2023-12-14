@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NotificationService } from '../notification.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,8 @@ export class LoginComponent {
 
   constructor(private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router) {
+    private router: Router,
+    private notification: NotificationService) {
 
     if (authService.isAuthenticated()) {
       this.router.navigateByUrl('/procedimentos');
@@ -38,7 +40,7 @@ export class LoginComponent {
       this.authService.login(val.username.toLowerCase(), val.password.toLowerCase())
         .subscribe(
           () => {
-            console.log("User is logged in");
+            this.notification.showSuccess("Usuario Logado com sucesso!");
             this.router.navigateByUrl('/procedimentos');
           }
         );

@@ -3,6 +3,7 @@ import { IonModal, ModalController } from '@ionic/angular';
 import { Paciente } from '../paciente.service';
 import { PacienteService } from '../paciente.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { NotificationService } from 'src/app/notification.service';
 
 
 @Component({
@@ -37,6 +38,7 @@ export class PacientesModalComponent implements OnInit {
 
   constructor(private pacienteService: PacienteService,
     private ionModalController: ModalController,
+    private notification: NotificationService,
     ) {
       this.form = new FormGroup({
         nome: new FormControl('', Validators.required),
@@ -78,7 +80,7 @@ export class PacientesModalComponent implements OnInit {
   
       this.ionModalController.dismiss({ data: this.paciente });
     } else {
-      console.log('não valido', this.form);
+      this.notification.showError("Erro na operação");
       // Lidar com a situação em que o formulário é inválido
     }
     this.ionModalController.dismiss({ data: this.paciente });
@@ -87,13 +89,11 @@ export class PacientesModalComponent implements OnInit {
   cadastrarPaciente(pacienteNew: Paciente) {
     this.pacienteService.addPaciente(pacienteNew).subscribe(
       res => {
-        console.log("sucesso");
-        console.log(res);
+        this.notification.showSuccess("Paciente Cadastrado com Sucesso!");
         // this.displayMessage('Patient added successfully.');
       },
       err => {
-        console.log("error");
-        console.log(err);
+        this.notification.showError("Erro ao Cadastrar Paciente");
         // this.componentService.displayMessage('Failed to add patient. Please try again.');
       }
     );
@@ -102,13 +102,11 @@ export class PacientesModalComponent implements OnInit {
   atualizarPaciente(paciente: Paciente) {
     this.pacienteService.updatePaciente(paciente).subscribe(
       res => {
-        console.log("sucesso");
-        console.log(res);
+        this.notification.showSuccess("Paciente Atualizado com Sucesso!");
         // this.displayMessage('Patient updated successfully.');
       },
       err => {
-        console.log("error");
-        console.log(err);
+        this.notification.showError("Erro ao Atualizar Paciente.");
         // this.componentService.displayMessage('Failed to update patient. Please try again.');
       }
     );

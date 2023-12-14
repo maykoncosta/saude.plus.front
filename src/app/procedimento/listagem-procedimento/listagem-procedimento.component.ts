@@ -6,6 +6,7 @@ import { PacientesModalComponent } from 'src/app/paciente/modal/paciente.modal.c
 import { ModalController, ActionSheetController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProcedimentoModalComponent } from '../procedimento-modal/procedimento-modal.component';
+import { NotificationService } from 'src/app/notification.service';
 
 @Component({
   selector: 'app-listagem-procedimento',
@@ -24,7 +25,8 @@ export class ListagemProcedimentoComponent  implements OnInit {
     private pacienteService: PacienteService,
     private modalController: ModalController,
     private router: Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private notification: NotificationService) {
       this.route.params.subscribe((params) => {
         this.pacienteId = params['pacienteId'];
       });
@@ -79,7 +81,7 @@ export class ListagemProcedimentoComponent  implements OnInit {
           await this.obterTodosPacientes();
         }
       } else {
-        console.log("Paciente não encontrado.");
+        this.notification.showError("Paciente Não Encontrado.");
       }
     } catch (error) {
       console.error("Erro ao obter o paciente:", error);
