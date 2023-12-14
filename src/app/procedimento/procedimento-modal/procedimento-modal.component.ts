@@ -6,6 +6,7 @@ import { IonModal, ModalController } from '@ionic/angular';
 import { Paciente } from 'src/app/paciente/paciente.service';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
+import { NotificationService } from 'src/app/notification.service';
 
 @Component({
   selector: 'app-procedimento-modal',
@@ -28,7 +29,8 @@ export class ProcedimentoModalComponent  implements OnInit {
 
   constructor(private service: ProcedimentoService,
     private router: Router,
-    private ionModalController: ModalController) {
+    private ionModalController: ModalController,
+    private notification: NotificationService) {
       this.form = new FormGroup({
         nome: new FormControl('', Validators.required),
         observacao: new FormControl(''),
@@ -68,7 +70,7 @@ export class ProcedimentoModalComponent  implements OnInit {
   
       this.ionModalController.dismiss({ data: this.procedimento });
     } else {
-      console.log('não valido', this.form);
+      this.notification.showError("Error ao Salvar Procedimento.");
       // Lidar com a situação em que o formulário é inválido
     }
     await this.ionModalController.dismiss({ data: this.procedimento });
@@ -77,13 +79,11 @@ export class ProcedimentoModalComponent  implements OnInit {
   cadastrarProcedimento(novoProcedimento: Procedimento) {
     this.service.addProcedimento(novoProcedimento).subscribe(
       res => {
-        console.log("sucesso");
-        console.log(res);
+        this.notification.showSuccess("Procedimento Cadastrado com Sucesso");
         // this.displayMessage('Patient added successfully.');
       },
       err => {
-        console.log("error");
-        console.log(err);
+        this.notification.showError("Erro ao Cadastrar Procedimento.");
         // this.componentService.displayMessage('Failed to add patient. Please try again.');
       }
     );
@@ -92,12 +92,11 @@ export class ProcedimentoModalComponent  implements OnInit {
   atualizarProcedimento(procedimento: Procedimento) {
     this.service.updateProcedimento(procedimento).subscribe(
       res => {
-        console.log("sucesso");
+        this.notification.showSuccess("Procedimento Atualizado com Sucesso!");
         // this.displayMessage('Patient updated successfully.');
       },
       err => {
-        console.log("error");
-        console.log(err);
+        this.notification.showError("Erro ao Atualizar Procedimento!");
         // this.componentService.displayMessage('Failed to update patient. Please try again.');
       }
     );

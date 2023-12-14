@@ -11,6 +11,8 @@ import { TabsComponent } from './tabs/tabs';
 import { PacienteModule } from './paciente/paciente.module';
 import { JwtInterceptor } from './JwtInterceptor';
 import { LoginModule } from './login/login.module';
+import { ProcedimentoPageModule } from './procedimento/procedimento.module';
+import { NotificationModule } from './notification/notification.module';
 
 @NgModule({
   declarations: [AppComponent, TabsComponent],
@@ -21,6 +23,8 @@ import { LoginModule } from './login/login.module';
     HttpClientModule,
     PacienteModule,
     LoginModule,
+    ProcedimentoPageModule,
+    NotificationModule
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

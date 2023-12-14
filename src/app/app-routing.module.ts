@@ -5,16 +5,12 @@ import { PacientesModalComponent } from './paciente/modal/paciente.modal.compone
 import { PacientesComponent } from './paciente/paciente.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
+import { ProcedimentoPage } from './procedimento/procedimento.page';
 
 const routes: Routes = [
-  { 
-    path: 'login', 
-    component: LoginComponent 
-  },
   {
-    path: '**',
-    redirectTo: 'pacientes',
-    pathMatch: 'full'
+    path: 'login',
+    component: LoginComponent
   },
   {
     path: 'cadastrar',
@@ -28,8 +24,19 @@ const routes: Routes = [
   },
   {
     path: 'procedimentos',
-    loadChildren: () => import('./procedimento/procedimento.module').then( m => m.ProcedimentoPageModule),
+    loadChildren: () => import('./procedimento/procedimento.module').then(m => m.ProcedimentoPageModule),
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'procedimentos/:pacienteId',
+    component: ProcedimentoPage,
+    canActivate: [AuthGuard]
+  },
+
+  {
+    path: '**',
+    redirectTo: 'procedimentos',
+    pathMatch: 'full'
   }
 ];
 

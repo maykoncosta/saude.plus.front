@@ -11,6 +11,7 @@ import { ListagemProcedimentoComponent } from './listagem-procedimento/listagem-
 import { ProcedimentoModalComponent } from './procedimento-modal/procedimento-modal.component';
 
 import { NgxPaginationModule } from 'ngx-pagination';
+import { RouterLink } from '@angular/router';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     IonicModule,
     ProcedimentoPageRoutingModule,
     ReactiveFormsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    RouterLink
   ],
   declarations: [ProcedimentoPage, ListagemProcedimentoComponent, ProcedimentoModalComponent],
   exports: [ListagemProcedimentoComponent, ProcedimentoPage]
