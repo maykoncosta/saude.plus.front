@@ -50,32 +50,38 @@ export class PacientesComponent implements OnInit {
     this.paciente.observacao = this.observacao;
   }
 
-
-  obterTodosPacientes() {
-    this.pacienteService.getPacientes().subscribe(pacientes => {
-      console.log('obter todos');
-      this.pacientes = pacientes;
-      this.filteredPacientes = pacientes;
-    });
-  }
-
   async openPacienteModal(paciente?: Paciente) {
-    const modal = await this.modalController.create({
-      component: PacientesModalComponent,
-      componentProps: {
-        paciente: paciente
-      },
-      cssClass: 'custom-modal',
-    });
-    await modal.present();
+    try {
+      const modal = await this.modalController.create({
+        component: PacientesModalComponent,
+        componentProps: {
+          paciente: paciente
+        },
+        cssClass: 'custom-modal',
+      });
 
-    const { data } = await modal.onDidDismiss();
+      await modal.present();
 
-    if (data?.updated) {
-      await this.obterTodosPacientes();
+      const { data } = await modal.onDidDismiss();
+
+      if (data) {
+        await this.obterTodosPacientes();
+        this.notification.showSuccess("Lista de pacientes atualizada com sucesso!");
+      }
+    } catch (err) {
+      this.notification.showError("Erro ao atualizar a lista de pacientes.");
     }
-
   }
+
+  async obterTodosPacientes() {
+    try {
+      this.pacientes = await this.pacienteService.getPacientes().toPromise();
+      this.filteredPacientes = this.pacientes;
+    } catch (err) {
+      this.notification.showError("Erro ao carregar pacientes.");
+    }
+  }
+
 
   deletePaciente(pacienteId: number) {
     this.pacienteService.deletePaciente(pacienteId).subscribe(res => {

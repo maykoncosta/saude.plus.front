@@ -1,8 +1,10 @@
 <ion-content class="ion-margin">
   <div class="table-box" style="background-color: #d1d4e2;">
-    <ion-grid  class="ion-margin scroll-lateral col s4 offset-s4 card">
+    <ion-grid class="ion-margin scroll-lateral col s4 offset-s4 card">
       <ion-row>
-        <ion-col class="head" size="12"><h1>Próximos Procedimentos</h1></ion-col>
+        <ion-col class="head" size="12">
+          <h1>Próximos Procedimentos</h1>
+        </ion-col>
       </ion-row>
       <ion-row class="head-table">
         <ion-col>Nome</ion-col>
@@ -10,14 +12,15 @@
         <ion-col>Especialidade</ion-col>
         <ion-col size="1.3">Tipo</ion-col>
         <ion-col>Observação</ion-col>
-        <ion-col size="2" style="text-align: center;"> 
+        <ion-col size="2" style="text-align: center;">
           <ion-icon class="icon-update" name="create-outline"></ion-icon>
         </ion-col>
       </ion-row>
-      <ion-row  *ngFor="let procedimento of procedimentos | paginate: { itemsPerPage: 10, currentPage: page }; index as i"
-      style="display: flex; background-color: #474e69; color: white;">
-        <ion-col >{{ procedimento.nome }}</ion-col>
-        <ion-col >{{ procedimento.local }}</ion-col>
+      <ion-row
+        *ngFor="let procedimento of procedimentos | paginate: { itemsPerPage: 10, currentPage: page }; index as i"
+        style="display: flex; background-color: #474e69; color: white;">
+        <ion-col>{{ procedimento.nome }}</ion-col>
+        <ion-col>{{ procedimento.local }}</ion-col>
         <ion-col> {{ procedimento.especialidade }}</ion-col>
         <ion-col size="1.3">{{ procedimento.tipo }}</ion-col>
         <ion-col>{{ procedimento.observacao }}</ion-col>
@@ -35,19 +38,29 @@
             <ion-icon class="icon-procedimento" name="add-circle-outline"></ion-icon>
           </ion-button>
         </ion-col>
-      </ion-row> 
-      <div id="aviso" *ngIf="naoPossuiProcedimentos">
-        <h2>O paciente não possui procedimentos. Deseja criar?</h2>       
-        <ion-button color="dark" (click)="abrirModalProcedimento()">
-          Criar
-        </ion-button>
+      </ion-row>
+      <div *ngIf="naoPossuiProcedimentos && !pacienteId; else elseBlock" class="aviso">
+        <h2>Não existem procedimentos, selecione um Paciente para criar um novo!</h2>
         <ion-button color="dark" (click)="voltarParaPacientes()">
-          Voltar
+          Selecionar Paciente
         </ion-button>
       </div>
+
+      <ng-template #elseBlock>
+        <div class="aviso" *ngIf="naoPossuiProcedimentos">
+          <h2>O paciente não possui procedimentos. Deseja criar?</h2>
+          <ion-button color="dark" (click)="abrirModalProcedimento()">
+            Criar
+          </ion-button>
+          <ion-button color="dark" (click)="voltarParaPacientes()">
+            Voltar
+          </ion-button>
+        </div>
+      </ng-template>
+
       <div class="pagination">
         <pagination-controls (pageChange)="page = $event"></pagination-controls>
       </div>
     </ion-grid>
   </div>
-  </ion-content>
+</ion-content>

@@ -27,25 +27,25 @@ export class PacientesModalComponent implements OnInit {
 
   @ViewChild(IonModal) modal!: IonModal;
 
-  changeClass (isCns: boolean) {
-    if(isCns){
+  changeClass(isCns: boolean) {
+    if (isCns) {
       this.classCns = 'item-has-focus';
-    }else{
+    } else {
       this.classVariable = 'item-has-focus';
     }
- }
+  }
 
   constructor(private pacienteService: PacienteService,
     private ionModalController: ModalController,
     private notification: NotificationService,
-    ) {
-      this.form = new FormGroup({
-        nome: new FormControl('', Validators.required),
-        observacao: new FormControl(''),
-        celular: new FormControl(''),
-        cns: new FormControl('', [Validators.required, Validators.minLength(12), Validators.maxLength(19)]),
-      });
-    }
+  ) {
+    this.form = new FormGroup({
+      nome: new FormControl('', Validators.required),
+      observacao: new FormControl(''),
+      celular: new FormControl(''),
+      cns: new FormControl('', [Validators.required, Validators.minLength(12), Validators.maxLength(19)]),
+    });
+  }
 
   ngOnInit() {
     if (this.paciente) {
@@ -59,55 +59,43 @@ export class PacientesModalComponent implements OnInit {
     this.ionModalController.dismiss();
   }
 
-  salvar() {
-    if (this.form.valid) {
-      const formData = this.form.value;
-  
-      if (this.paciente) {
-        // Atualizar paciente existente
-        this.paciente.nome = formData.nome;
-        this.paciente.celular = formData.celular;
-        this.paciente.cns = formData.cns;
-        this.paciente.observacao = formData.observacao;
-        this.atualizarPaciente(this.paciente);
+  async salvar() {
+    try {
+      if (this.form.valid) {
+        const formData = this.form.value;
+
+        if (this.paciente) {
+          // Atualizar paciente existente
+          this.paciente.nome = formData.nome;
+          this.paciente.celular = formData.celular;
+          this.paciente.cns = formData.cns;
+          this.paciente.observacao = formData.observacao;
+          await this.atualizarPaciente(this.paciente);
+          this.notification.showSuccess("Paciente Atualizado com Sucesso!");
+        } else {
+          // Criar novo paciente
+          await this.cadastrarPaciente(formData);
+          this.notification.showSuccess("Paciente Cadastrado com Sucesso!");
+        }
+
+        this.ionModalController.dismiss({ data: this.paciente });
       } else {
-        // Criar novo paciente
-        this.cadastrarPaciente(formData);
+        this.notification.showError("Erro na operação: Formulário inválido");
       }
-  
-      this.ionModalController.dismiss({ updated: true });
-    } else {
-      this.notification.showError("Erro na operação");
-      // Lidar com a situação em que o formulário é inválido
+    } catch (err) {
+      console.error(err);
+      this.notification.showError("Erro ao processar a operação.");
     }
-    this.ionModalController.dismiss({ updated: false });
-
   }
 
-  cadastrarPaciente(pacienteNew: Paciente) {
-    this.pacienteService.addPaciente(pacienteNew).subscribe(
-      res => {
-        this.notification.showSuccess("Paciente Cadastrado com Sucesso!");
-      },
-      err => {
-        this.notification.showError("Erro ao Cadastrar Paciente");
-      }
-    );
+  async atualizarPaciente(paciente: Paciente): Promise<any> {
+    return this.pacienteService.updatePaciente(paciente).toPromise();
   }
 
-  atualizarPaciente(paciente: Paciente) {
-    this.pacienteService.updatePaciente(paciente).subscribe(
-      res => {
-        this.notification.showSuccess("Paciente Atualizado com Sucesso!");
-        // this.displayMessage('Patient updated successfully.');
-      },
-      err => {
-        console.log(err);
-        this.notification.showError("Erro ao Atualizar Paciente.");
-        // this.componentService.displayMessage('Failed to update patient. Please try again.');
-      }
-    );
+  async cadastrarPaciente(pacienteNew: Paciente): Promise<any> {
+    return this.pacienteService.addPaciente(pacienteNew).toPromise();
   }
+
 
   private setFormValues(paciente: any) {
     this.form.patchValue({

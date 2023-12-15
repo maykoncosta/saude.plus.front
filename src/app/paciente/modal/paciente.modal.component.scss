@@ -1,27 +1,26 @@
-
 @media screen and (max-width: 700px) {
-    .title{
-      font-size: medium;
-    }
-
-    .btnHeader{
-        font-size: x-small;
-      }
-
-      #background-content{
-          .scroll-y{
-               padding: 0;
-           }
-      }
-
-      .calendar-day {
-        font-size: 10px;
-    }
-
+  .title {
+    font-size: medium;
   }
 
-  .datetime-centered {
-    --padding-start: 0;
+  .btnHeader {
+    font-size: x-small;
+  }
+
+  #background-content {
+    .scroll-y {
+      padding: 0;
+    }
+  }
+
+  .calendar-day {
+    font-size: 10px;
+  }
+
+}
+
+.datetime-centered {
+  --padding-start: 0;
   --padding-end: 0;
   display: flex;
   flex-direction: column;
@@ -37,15 +36,16 @@
     width: 100%;
     margin-top: 20px;
   }
-  }
-  .custom-modal{
-    max-width: 450px !important;
-  }
+}
 
-  .input-classic{
-    background: none;
-    border: none;
-    box-shadow: 0 0 0 0;
-    border: 0 none;
-    outline: 0;
-  }
+.custom-modal {
+  max-width: 450px !important;
+}
+
+.input-classic {
+  background: none;
+  border: none;
+  box-shadow: 0 0 0 0;
+  border: 0 none;
+  outline: 0;
+}

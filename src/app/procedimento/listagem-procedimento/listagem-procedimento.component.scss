@@ -1,82 +1,97 @@
 ion-grid {
-    --ion-grid-column-padding: 10px;
-    border-collapse: collapse;
-    border-style: hidden;
+  --ion-grid-column-padding: 10px;
+  border-collapse: collapse;
+  border-style: hidden;
 
-    
 
-    max-width: 1100px;
 
-    .head-table{
-      background-color:  #3880FF;
-      font-weight: bold;
-    }
+  max-width: 1100px;
 
-    .head{
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    ion-col {
-      width: fit-content;
-      border: 1px solid black;
-      border-bottom: 0;
-      border-right: 0;
-      font-size: smaller;
-    }
-    ion-col:last-child {
-      border-right: 1px solid black;
-    }
-    
-    ion-row:last-child {
-      border-bottom: 1px solid black;
-    }
-    ion-row:first-child {
-      background-color:  #5195FF;
-      font-weight: bold;
-    }
+  .head-table {
+    background-color: #3880FF;
+    font-weight: bold;
+  }
 
-    .icon-update, .icon-delete, .icon-procedimento{
-      margin: -10px;
-    }
+  .head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-    .col-update, .icon-delete{
-      padding: 0;
-    }
+  ion-col {
+    width: fit-content;
+    border: 1px solid black;
+    border-bottom: 0;
+    border-right: 0;
+    font-size: smaller;
+  }
 
-    #aviso{
-      display: grid;
-      background-color: #989AA2;
+  ion-col:last-child {
+    border-right: 1px solid black;
+  }
 
-      h2{
-        color: black;
-        margin-left: 10px;
-      }
+  ion-row:last-child {
+    border-bottom: 1px solid black;
+  }
+
+  ion-row:first-child {
+    background-color: #5195FF;
+    font-weight: bold;
+  }
+
+  .icon-update,
+  .icon-delete,
+  .icon-procedimento {
+    margin: -10px;
+  }
+
+  .col-update,
+  .icon-delete {
+    padding: 0;
+  }
+
+  .aviso {
+    display: grid;
+    background-color: #989AA2;
+
+    h2 {
+      color: black;
+      margin-left: 10px;
     }
   }
-  .table-box{
-    
+}
+
+.table-box {
+
   display: flex;
   align-items: center;
   justify-content: center;
-  }
-.scroll-lateral{
-    overflow-x: scroll;
-    white-space: nowrap;
 }
-  @media screen and (min-width: 700px) {
-    .scroll-lateral {
-      overflow-x: visible;
-      white-space: normal;
-    }
-  }
 
-  .icon-update, .icon-delete, .icon-procedimento {
-    width: 30px;
-    font-size: 180%;
+.scroll-lateral {
+  overflow-x: scroll;
+  white-space: nowrap;
+}
+
+@media screen and (min-width: 700px) {
+  .scroll-lateral {
+    overflow-x: visible;
+    white-space: normal;
   }
-  .pagination{
-    background-color: #989AA2;
-    margin-top: -16px;
-  }
-  
+}
+
+.icon-update,
+.icon-delete,
+.icon-procedimento {
+  width: 30px;
+  font-size: 180%;
+}
+
+.pagination {
+  background-color: #989AA2;
+  margin-top: -16px;
+}
+
+#background-content {
+  background-color: #d1d4e2 !important;
+}
