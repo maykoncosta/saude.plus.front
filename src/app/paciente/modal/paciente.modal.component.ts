@@ -20,7 +20,6 @@ export class PacientesModalComponent implements OnInit {
   pacienteNew: Paciente = new Paciente();
 
   dateMask: string = '00/00/0000';
-  phoneMask: string = '(00)00000-0000';
   cnsMask: string = '000 0000 0000 0000';
   classVariable: string = '';
   classCns: string = '';
@@ -42,7 +41,6 @@ export class PacientesModalComponent implements OnInit {
     ) {
       this.form = new FormGroup({
         nome: new FormControl('', Validators.required),
-        dataNascimento: new FormControl(''),
         observacao: new FormControl(''),
         celular: new FormControl(''),
         cns: new FormControl('', [Validators.required, Validators.minLength(12), Validators.maxLength(19)]),
@@ -68,7 +66,6 @@ export class PacientesModalComponent implements OnInit {
       if (this.paciente) {
         // Atualizar paciente existente
         this.paciente.nome = formData.nome;
-        this.paciente.dataNascimento = formData.dataNascimento;
         this.paciente.celular = formData.celular;
         this.paciente.cns = formData.cns;
         this.paciente.observacao = formData.observacao;
@@ -78,23 +75,22 @@ export class PacientesModalComponent implements OnInit {
         this.cadastrarPaciente(formData);
       }
   
-      this.ionModalController.dismiss({ data: this.paciente });
+      this.ionModalController.dismiss({ updated: true });
     } else {
       this.notification.showError("Erro na operação");
       // Lidar com a situação em que o formulário é inválido
     }
-    this.ionModalController.dismiss({ data: this.paciente });
+    this.ionModalController.dismiss({ updated: false });
+
   }
 
   cadastrarPaciente(pacienteNew: Paciente) {
     this.pacienteService.addPaciente(pacienteNew).subscribe(
       res => {
         this.notification.showSuccess("Paciente Cadastrado com Sucesso!");
-        // this.displayMessage('Patient added successfully.');
       },
       err => {
         this.notification.showError("Erro ao Cadastrar Paciente");
-        // this.componentService.displayMessage('Failed to add patient. Please try again.');
       }
     );
   }
@@ -106,6 +102,7 @@ export class PacientesModalComponent implements OnInit {
         // this.displayMessage('Patient updated successfully.');
       },
       err => {
+        console.log(err);
         this.notification.showError("Erro ao Atualizar Paciente.");
         // this.componentService.displayMessage('Failed to update patient. Please try again.');
       }
@@ -115,18 +112,9 @@ export class PacientesModalComponent implements OnInit {
   private setFormValues(paciente: any) {
     this.form.patchValue({
       nome: paciente.nome,
-      dataNascimento: this.convertDateFormat(paciente.dataNascimento),
+      observacao: paciente.observacao,
       celular: paciente.celular,
       cns: paciente.cns,
     });
   }
-
-  private convertDateFormat(dateStr: String): String {
-      if(!dateStr){
-        return '';
-      }
-    const dateParts = dateStr.split('/');
-    return `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
-  }
-
 }

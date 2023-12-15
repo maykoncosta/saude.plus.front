@@ -28,9 +28,10 @@ export class PacientesComponent implements OnInit {
   page: number = 1;
   @ViewChild(IonModal) modal!: IonModal;
 
-  constructor(private pacienteService: PacienteService, 
+  constructor(private pacienteService: PacienteService,
     private modalController: ModalController,
-    private router: Router) { }
+    private router: Router,
+    private notification: NotificationService) { }
 
   ngOnInit() {
     this.obterTodosPacientes();
@@ -52,6 +53,7 @@ export class PacientesComponent implements OnInit {
 
   obterTodosPacientes() {
     this.pacienteService.getPacientes().subscribe(pacientes => {
+      console.log('obter todos');
       this.pacientes = pacientes;
       this.filteredPacientes = pacientes;
     });
@@ -66,20 +68,23 @@ export class PacientesComponent implements OnInit {
       cssClass: 'custom-modal',
     });
     await modal.present();
-    
+
     const { data } = await modal.onDidDismiss();
 
-    if (data) {
+    if (data?.updated) {
       await this.obterTodosPacientes();
     }
+
   }
 
-  deletePaciente(index: number) {
-    const paciente = this.pacientes[index];
-  
-    this.pacienteService.deletePaciente(paciente.id).subscribe(() => {
-      this.pacientes.splice(index, 1);
-    });
+  deletePaciente(pacienteId: number) {
+    this.pacienteService.deletePaciente(pacienteId).subscribe(res => {
+      this.obterTodosPacientes();
+      this.notification.showSuccess("Paciente Excluido com Sucesso!");
+    },
+      err => {
+        this.notification.showSuccess("Erro ao Excluir Paciente.");
+      });
   }
 
   filterPacientes() {
@@ -90,7 +95,7 @@ export class PacientesComponent implements OnInit {
         paciente.cns.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
     this.page = 1;
-    if(!this.filteredPacientes){
+    if (!this.filteredPacientes) {
       this.filteredPacientes = this.pacientes;
     }
   }

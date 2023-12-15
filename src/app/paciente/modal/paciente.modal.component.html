@@ -20,24 +20,15 @@
             <ion-label position="floating">Nome</ion-label>
             <ion-input formControlName="nome"></ion-input>
           </ion-item>
-          <ion-item class="datetime-centered">
-            <ion-label position="floating">Data de Nascimento</ion-label>
-            <ion-datetime
-            size="cover"
-              presentation="date"
-              displayFormat="DD/MM/YYYY"
-              [preferWheel]="true"
-              formControlName="dataNascimento"
-            ></ion-datetime>
-          </ion-item>
           <ion-item (click)="changeClass(false)" [class]="classVariable">
             <ion-label position="floating">Celular</ion-label>
             <input class="input-classic"
               formControlName="celular"
               type="tel"
+              pattern="[0-9]*"
+              maxlength="20"
               id="inputCell"
-              placeholder="(00) 0000-0000"
-              [mask]="phoneMask"/>
+              placeholder="(00) 0000-0000"/>
           </ion-item>
           <ion-item (click)="changeClass(true)" [class]="classCns">
             <ion-label position="floating">CNS</ion-label>
