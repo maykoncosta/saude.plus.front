@@ -8,7 +8,7 @@
       </ion-row>
       <ion-row class="head-table">
         <ion-col>Nome</ion-col>
-        <ion-col>Local</ion-col>
+        <ion-col>Data de Entrega</ion-col>
         <ion-col>Especialidade</ion-col>
         <ion-col size="1.3">Tipo</ion-col>
         <ion-col>Observação</ion-col>
@@ -20,7 +20,7 @@
         *ngFor="let procedimento of procedimentos | paginate: { itemsPerPage: 10, currentPage: page }; index as i"
         style="display: flex; background-color: #474e69; color: white;">
         <ion-col>{{ procedimento.nome }}</ion-col>
-        <ion-col>{{ procedimento.local }}</ion-col>
+        <ion-col>{{ procedimento.dataEntrega }}</ion-col>
         <ion-col> {{ procedimento.especialidade }}</ion-col>
         <ion-col size="1.3">{{ procedimento.tipo }}</ion-col>
         <ion-col>{{ procedimento.observacao }}</ion-col>

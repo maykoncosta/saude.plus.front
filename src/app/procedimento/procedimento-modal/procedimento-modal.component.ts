@@ -5,7 +5,6 @@ import { Procedimento } from '../procedimento.service';
 import { IonModal, ModalController } from '@ionic/angular';
 import { Paciente } from 'src/app/paciente/paciente.service';
 import { Router } from '@angular/router';
-import * as moment from 'moment';
 import { NotificationService } from 'src/app/notification.service';
 
 @Component({
@@ -35,7 +34,7 @@ export class ProcedimentoModalComponent  implements OnInit {
         nome: new FormControl('', Validators.required),
         observacao: new FormControl(''),
         tipo: new FormControl('', Validators.required,),
-        local: new FormControl(''),
+        dataEntrega: new FormControl(''),
         especialidade: new FormControl(''),
         pacienteId: new FormControl(''),
       });
@@ -45,6 +44,7 @@ export class ProcedimentoModalComponent  implements OnInit {
     if(!this.procedimento){
       this.isEditar = false;
       this.procedimento = new Procedimento;
+      this.procedimento.dataEntrega = this.formatDate(new Date());
     }
     this.setFormValues(this.procedimento);
   }
@@ -57,21 +57,18 @@ export class ProcedimentoModalComponent  implements OnInit {
     if (this.form.valid) {
       const formData = this.form.value;
       if (this.procedimento?.id) {
-        // Atualizar paciente existente
         this.procedimento.observacao= formData.observacao;
         this.procedimento.especialidade = formData.especialidade;
-        this.procedimento.local = formData.local;
+        this.procedimento.dataEntrega = formData.dataEntrega;
         this.procedimento.tipo = formData.tipo;
         this.atualizarProcedimento(this.procedimento);
       } else {
-        // Criar novo paciente
         this.cadastrarProcedimento(formData);
       }
   
       this.ionModalController.dismiss({ data: this.procedimento });
     } else {
       this.notification.showError("Error ao Salvar Procedimento.");
-      // Lidar com a situação em que o formulário é inválido
     }
     await this.ionModalController.dismiss({ data: this.procedimento });
   }
@@ -80,11 +77,9 @@ export class ProcedimentoModalComponent  implements OnInit {
     this.service.addProcedimento(novoProcedimento).subscribe(
       res => {
         this.notification.showSuccess("Procedimento Cadastrado com Sucesso");
-        // this.displayMessage('Patient added successfully.');
       },
       err => {
         this.notification.showError("Erro ao Cadastrar Procedimento.");
-        // this.componentService.displayMessage('Failed to add patient. Please try again.');
       }
     );
   }
@@ -93,11 +88,9 @@ export class ProcedimentoModalComponent  implements OnInit {
     this.service.updateProcedimento(procedimento).subscribe(
       res => {
         this.notification.showSuccess("Procedimento Atualizado com Sucesso!");
-        // this.displayMessage('Patient updated successfully.');
       },
       err => {
         this.notification.showError("Erro ao Atualizar Procedimento!");
-        // this.componentService.displayMessage('Failed to update patient. Please try again.');
       }
     );
   }
@@ -106,7 +99,7 @@ export class ProcedimentoModalComponent  implements OnInit {
     this.form.patchValue({
       nome: this.paciente?.nome,
       observacao: procedimento?.observacao,
-      local: procedimento?.local,
+      dataEntrega: procedimento?.dataEntrega,
       especialidade: procedimento?.especialidade,
       tipo: procedimento?.tipo,
       pacienteId: this.paciente?.id,
@@ -115,6 +108,13 @@ export class ProcedimentoModalComponent  implements OnInit {
 
   handleChange(ev:any) {
     this.procedimento!.tipo = ev.target.value;
+  }
+
+  formatDate(date: Date): string {
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // +1 porque os meses começam em 0
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
   }
 
 }

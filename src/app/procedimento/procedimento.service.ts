@@ -9,7 +9,7 @@ export class Procedimento {
   pacienteId!: number;
   nome!: string;
   observacao!: string;
-  local!: string;
+  dataEntrega!: string;
   tipo!: string;
   especialidade!: string;
 }
@@ -32,7 +32,7 @@ export class ProcedimentoService {
             pacienteId: p.pacienteId,
             nome: p.pacienteNome,
             observacao:  p.observacao,
-            local: p.local,
+            dataEntrega: p.dataEntrega,
             tipo: p.tipo,
             especialidade: p.especialidade
           };
@@ -47,7 +47,7 @@ export class ProcedimentoService {
             pacienteId: p.pacienteId,
             nome: p.pacienteNome,
             observacao:  p.observacao,
-            local: p.local,
+            dataEntrega: p.dataEntrega,
             tipo: p.tipo,
             especialidade: p.especialidade
           };
