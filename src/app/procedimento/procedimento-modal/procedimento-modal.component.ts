@@ -54,45 +54,36 @@ export class ProcedimentoModalComponent  implements OnInit {
   }
 
   async salvar() {
-    if (this.form.valid) {
-      const formData = this.form.value;
-      if (this.procedimento?.id) {
-        this.procedimento.observacao= formData.observacao;
-        this.procedimento.especialidade = formData.especialidade;
-        this.procedimento.dataEntrega = formData.dataEntrega;
-        this.procedimento.tipo = formData.tipo;
-        this.atualizarProcedimento(this.procedimento);
+    try{
+      if (this.form.valid) {
+        const formData = this.form.value;
+        if (this.procedimento?.id) {
+          this.procedimento.observacao= formData.observacao;
+          this.procedimento.especialidade = formData.especialidade;
+          this.procedimento.dataEntrega = formData.dataEntrega;
+          this.procedimento.tipo = formData.tipo;
+          await this.atualizarProcedimento(this.procedimento);
+          this.notification.showSuccess("Procedimento Atualizado com Sucesso!");
+        } else {
+          this.notification.showSuccess("Procedimento Cadastrado com Sucesso!");
+          await this.cadastrarProcedimento(formData);
+        }
+        this.ionModalController.dismiss({ data: this.procedimento });
       } else {
-        this.cadastrarProcedimento(formData);
+        this.notification.showError("Error ao Salvar Procedimento.");
       }
-  
       this.ionModalController.dismiss({ data: this.procedimento });
-    } else {
-      this.notification.showError("Error ao Salvar Procedimento.");
+    }catch{
+      this.notification.showError("Erro na operação: Formulário inválido");
     }
-    await this.ionModalController.dismiss({ data: this.procedimento });
   }
 
-  cadastrarProcedimento(novoProcedimento: Procedimento) {
-    this.service.addProcedimento(novoProcedimento).subscribe(
-      res => {
-        this.notification.showSuccess("Procedimento Cadastrado com Sucesso");
-      },
-      err => {
-        this.notification.showError("Erro ao Cadastrar Procedimento.");
-      }
-    );
+  cadastrarProcedimento(novoProcedimento: Procedimento): Promise<any> {
+    return this.service.addProcedimento(novoProcedimento).toPromise();
   }
 
-  atualizarProcedimento(procedimento: Procedimento) {
-    this.service.updateProcedimento(procedimento).subscribe(
-      res => {
-        this.notification.showSuccess("Procedimento Atualizado com Sucesso!");
-      },
-      err => {
-        this.notification.showError("Erro ao Atualizar Procedimento!");
-      }
-    );
+  atualizarProcedimento(procedimento: Procedimento): Promise<any> {
+    return this.service.updateProcedimento(procedimento).toPromise();
   }
 
   private setFormValues(procedimento: any) {

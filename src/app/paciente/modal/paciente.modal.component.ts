@@ -65,7 +65,6 @@ export class PacientesModalComponent implements OnInit {
         const formData = this.form.value;
 
         if (this.paciente) {
-          // Atualizar paciente existente
           this.paciente.nome = formData.nome;
           this.paciente.celular = formData.celular;
           this.paciente.cns = formData.cns;

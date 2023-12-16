@@ -33,10 +33,10 @@ export class ListagemProcedimentoComponent  implements OnInit {
     }
 
   async ngOnInit() {
-    await this.obterTodosPacientes();
+    await this.obterTodosProcedimentos();
   }
 
-  async obterTodosPacientes(todos?: any){
+  async obterTodosProcedimentos(todos?: any){
     if(todos){
       this.pacienteId = undefined;
     }
@@ -78,7 +78,7 @@ export class ListagemProcedimentoComponent  implements OnInit {
         const { data } = await modal.onDidDismiss();
   
         if (data) {
-          await this.obterTodosPacientes();
+          await this.obterTodosProcedimentos();
         }
       } else {
         this.notification.showError("Paciente Não Encontrado.");
@@ -105,24 +105,29 @@ export class ListagemProcedimentoComponent  implements OnInit {
     const { data } = await modal.onDidDismiss();
 
     if (data) {
-      await this.obterTodosPacientes();
+      await this.obterTodosProcedimentos();
     }
   }
 
   async abrirModalProcedimentoNovo(idPaciente: number) {
-    const modal = await this.modalController.create({
-      component: ProcedimentoModalComponent,
-      componentProps: {
-        paciente: await this.obterPacientePorId(idPaciente),
-      },
-      cssClass: 'custom-modal',
-    });
-    await modal.present();
-    
-    const { data } = await modal.onDidDismiss();
-
-    if (data) {
-      await this.obterTodosPacientes();
+    try{
+      const modal = await this.modalController.create({
+        component: ProcedimentoModalComponent,
+        componentProps: {
+          paciente: await this.obterPacientePorId(idPaciente),
+        },
+        cssClass: 'custom-modal',
+      });
+      await modal.present();
+      
+      const { data } = await modal.onDidDismiss();
+  
+      if (data) {
+        await this.obterTodosProcedimentos();
+        this.notification.showSuccess("Lista de procedimentos atualizada com sucesso!");
+      }
+    }catch{
+      this.notification.showError("Erro ao atualizar a lista de procedimentos.");
     }
   }
 
