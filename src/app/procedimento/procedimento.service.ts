@@ -7,53 +7,66 @@ import { map } from 'rxjs/operators';
 export class Procedimento {
   id!: number;
   pacienteId!: number;
-  nome!: string;
+  pacienteNome!: string;
   observacao!: string;
   dataEntrega!: string;
   tipo!: string;
   especialidade!: string;
 }
 
+export class Page<T> {
+  content!: T[];
+  totalPages!: number;
+  totalElements!: number;
+  last!: boolean;
+  size!: number;
+  number!: number;
+  first!: boolean;
+  numberOfElements!: number;
+  empty!: boolean;
+}
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProcedimentoService {
   private apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  getProcedimentos(idPaciente: number): Observable<Procedimento[]> {
-    if(idPaciente === undefined){
-      return this.http.get<any[]>(`${this.apiUrl}/procedimentos`)
+  getProcedimentos(
+    idPaciente: number,
+    page: number = 0,
+    size: number = 10,
+    sort: string = 'id,asc'
+  ): Observable<Page<Procedimento>> {
+    let url =
+      idPaciente === undefined
+        ? `${this.apiUrl}/procedimentos`
+        : `${this.apiUrl}/procedimentos/paciente/${idPaciente}`;
+    return this.http
+      .get<Page<Procedimento>>(url, {
+        params: {
+          page: page.toString(),
+          size: size.toString(),
+        },
+      })
       .pipe(
-        map(procedimentosJson => procedimentosJson.map(p => {
-          return {
-            id: p.id,
-            pacienteId: p.pacienteId,
-            nome: p.pacienteNome,
-            observacao:  p.observacao,
-            dataEntrega: p.dataEntrega,
-            tipo: p.tipo,
-            especialidade: p.especialidade
-          };
-        }))
+        map((pageData) => {
+          pageData.content = pageData.content.map((p: Procedimento) => {
+            return {
+              id: p.id,
+              pacienteId: p.pacienteId,
+              pacienteNome: p.pacienteNome,
+              observacao: p.observacao,
+              dataEntrega: p.dataEntrega,
+              tipo: p.tipo,
+              especialidade: p.especialidade,
+            };
+          });
+          return pageData;
+        })
       );
-    }else{
-      return this.http.get<any[]>(`${this.apiUrl}/procedimentos/paciente/${idPaciente}`)
-      .pipe(
-        map(procedimentosJson => procedimentosJson.map(p => {
-          return {
-            id: p.id,
-            pacienteId: p.pacienteId,
-            nome: p.pacienteNome,
-            observacao:  p.observacao,
-            dataEntrega: p.dataEntrega,
-            tipo: p.tipo,
-            especialidade: p.especialidade
-          };
-        }))
-      );
-    }
   }
 
   getProcedimento(id: number) {
@@ -65,7 +78,10 @@ export class ProcedimentoService {
   }
 
   updateProcedimento(procedimento: any) {
-    return this.http.put(`${this.apiUrl}/procedimentos/${procedimento.id}`, procedimento);
+    return this.http.put(
+      `${this.apiUrl}/procedimentos/${procedimento.id}`,
+      procedimento
+    );
   }
 
   deleteProcedimento(id: number) {

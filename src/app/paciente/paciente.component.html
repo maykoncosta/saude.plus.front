@@ -1,22 +1,30 @@
 <ion-header [translucent]="true">
   <ion-toolbar class="header">
-    <ion-row style="background-color: #d3e2fd;" >
-      <ion-col class="head" style="display: flex;" size="">
-        <ion-title style="color: black;"> PACIENTES </ion-title>
-        <ion-searchbar color="medium" placeholder="Buscar Paciente"
-          [(ngModel)]="searchTerm" (ionChange)="filterPacientes()"></ion-searchbar>
+    <ion-row style="background-color: #d3e2fd">
+      <ion-col class="head" style="display: flex" size="">
+        <ion-title style="color: black"> PACIENTES </ion-title>
+        <ion-searchbar
+          color="medium"
+          placeholder="Buscar Paciente"
+          [(ngModel)]="searchTerm"
+          (ionChange)="filterPacientes()"
+        ></ion-searchbar>
       </ion-col>
     </ion-row>
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-margin">
-  <div class="table-box" style="background-color: #d1d4e2;">
+  <div class="table-box" style="background-color: #d1d4e2">
     <ion-grid class="ion-margin scroll-lateral col s4 offset-s4 card">
       <ion-row>
-        <ion-col class="head" size="12"><h1 style="color: #d3e2fd">Pacientes</h1> 
-          <ion-button class="btnCadastrar" 
-          (click)="openPacienteModal()" 
-          color="dark">Cadastrar Paciente</ion-button>
+        <ion-col class="head" size="12"
+          ><h1 style="color: #d3e2fd">Pacientes</h1>
+          <ion-button
+            class="btnCadastrar"
+            (click)="openPacienteModal()"
+            color="dark"
+            >Cadastrar Paciente</ion-button
+          >
         </ion-col>
       </ion-row>
       <ion-row class="head-table">
@@ -24,30 +32,43 @@
         <ion-col size="">Observação</ion-col>
         <ion-col size="2">Celular</ion-col>
         <ion-col size="2.3">CNS</ion-col>
-        <ion-col size="1.5" style="text-align: center;"> 
+        <ion-col size="1.5" style="text-align: center">
           <ion-icon class="icon-update" name="create-outline"></ion-icon>
         </ion-col>
       </ion-row>
-      <ion-row *ngFor="let paciente of filteredPacientes | paginate: { itemsPerPage: 10, currentPage: page }; index as i" 
-        style="display: flex; background-color: #474e69; color: #d3e2fd;" >
+      <ion-row
+        *ngFor="let paciente of filteredPacientes; index as i"
+        style="display: flex; background-color: #474e69; color: #d3e2fd"
+      >
         <ion-col size="4.2">{{ paciente.nome }}</ion-col>
         <ion-col size="">{{ paciente.observacao }}</ion-col>
-        <ion-col size="2" >{{ paciente.celular }}</ion-col>
+        <ion-col size="2">{{ paciente.celular }}</ion-col>
         <ion-col size="2.3">{{ paciente.cns }}</ion-col>
         <ion-col size="1.5" class="col-update ion-align-items-center">
           <ion-button class="btnsUpdate" (click)="openPacienteModal(paciente)">
-            <ion-icon class="icon-update " name="create-outline"></ion-icon>
+            <ion-icon class="icon-update" name="create-outline"></ion-icon>
           </ion-button>
           <ion-button class="btnsUpdate" (click)="deletePaciente(paciente.id)">
-            <ion-icon class="icon-delete " name="trash-outline"></ion-icon>
+            <ion-icon class="icon-delete" name="trash-outline"></ion-icon>
           </ion-button>
-          <ion-button class="btnsUpdate" (click)="navegarParaProcedimentos(paciente.id)">
-            <ion-icon class="icon-procedimento" name="folder-open-outline"></ion-icon>
+          <ion-button
+            class="btnsUpdate"
+            (click)="navegarParaProcedimentos(paciente.id)"
+          >
+            <ion-icon
+              class="icon-procedimento"
+              name="folder-open-outline"
+            ></ion-icon>
           </ion-button>
         </ion-col>
       </ion-row>
       <div class="pagination">
-        <pagination-controls (pageChange)="page = $event"></pagination-controls>
+        <button (click)="previousPage()" [disabled]="page <= 1">
+          Anterior
+        </button>
+        <button (click)="nextPage()" [disabled]="page >= totalPages">
+          Proximo
+        </button>
       </div>
     </ion-grid>
   </div>

@@ -1,4 +1,3 @@
-
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -8,12 +7,16 @@
         </ion-button>
       </ion-nav-link>
     </ion-buttons>
-    <ion-title *ngIf="isEditar; else cadastrar" class="title">EDITAR PROCEDIMENTO</ion-title>
+    <ion-title *ngIf="isEditar; else cadastrar" class="title"
+      >EDITAR PROCEDIMENTO</ion-title
+    >
     <ng-template #cadastrar>
       <ion-title class="title">CADASTRAR PROCEDIMENTO</ion-title>
     </ng-template>
-      <ion-buttons slot="end">
-      <ion-button class="btnHeader" (click)="salvar()" [strong]="true">Salvar</ion-button>
+    <ion-buttons slot="end">
+      <ion-button class="btnHeader" (click)="salvar()" [strong]="true"
+        >Salvar</ion-button
+      >
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -21,7 +24,7 @@
   <form [formGroup]="form">
     <ion-item>
       <ion-label position="floating">Nome</ion-label>
-      <ion-input [disabled]="true"formControlName="nome"></ion-input>
+      <ion-input [disabled]="true" formControlName="pacienteNome"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Data de Entrega</ion-label>
@@ -33,10 +36,16 @@
     </ion-item>
     <ion-item>
       <ion-label position="floating">Tipo</ion-label>
-      <ion-select  interface="popover"
-       (ionChange)="handleChange($event)"
-      formControlName="tipo">
-      <ion-select-option *ngFor="let tip of tiposProcedimento" [value]="tip">{{ tip }}</ion-select-option>
+      <ion-select
+        interface="popover"
+        (ionChange)="handleChange($event)"
+        formControlName="tipo"
+      >
+        <ion-select-option
+          *ngFor="let tip of tiposProcedimento"
+          [value]="tip"
+          >{{ tip }}</ion-select-option
+        >
       </ion-select>
     </ion-item>
     <ion-item>

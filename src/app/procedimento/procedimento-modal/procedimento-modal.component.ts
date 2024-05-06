@@ -12,12 +12,12 @@ import { NotificationService } from 'src/app/notification.service';
   templateUrl: './procedimento-modal.component.html',
   styleUrls: ['./procedimento-modal.component.scss'],
 })
-export class ProcedimentoModalComponent  implements OnInit {
+export class ProcedimentoModalComponent implements OnInit {
   form: FormGroup;
   @Input() procedimento: Procedimento | null = null;
   @Input() paciente: Paciente | null = null;
 
-  tiposProcedimento: any = ['EXAME', 'CONSULTA','CIRUGIA'];
+  tiposProcedimento: any = ['EXAME', 'CONSULTA', 'CIRUGIA'];
   novoProcedimento: Procedimento = new Procedimento();
 
   dateMask: string = '00/00/0000';
@@ -26,24 +26,26 @@ export class ProcedimentoModalComponent  implements OnInit {
 
   @ViewChild(IonModal) modal!: IonModal;
 
-  constructor(private service: ProcedimentoService,
+  constructor(
+    private service: ProcedimentoService,
     private router: Router,
     private ionModalController: ModalController,
-    private notification: NotificationService) {
-      this.form = new FormGroup({
-        nome: new FormControl('', Validators.required),
-        observacao: new FormControl(''),
-        tipo: new FormControl('', Validators.required,),
-        dataEntrega: new FormControl(''),
-        especialidade: new FormControl(''),
-        pacienteId: new FormControl(''),
-      });
-    }
+    private notification: NotificationService
+  ) {
+    this.form = new FormGroup({
+      pacienteNome: new FormControl('', Validators.required),
+      observacao: new FormControl(''),
+      tipo: new FormControl('', Validators.required),
+      dataEntrega: new FormControl(''),
+      especialidade: new FormControl(''),
+      pacienteId: new FormControl(''),
+    });
+  }
 
   ngOnInit() {
-    if(!this.procedimento){
+    if (!this.procedimento) {
       this.isEditar = false;
-      this.procedimento = new Procedimento;
+      this.procedimento = new Procedimento();
       this.procedimento.dataEntrega = this.formatDate(new Date());
     }
     this.setFormValues(this.procedimento);
@@ -54,27 +56,27 @@ export class ProcedimentoModalComponent  implements OnInit {
   }
 
   async salvar() {
-    try{
+    try {
       if (this.form.valid) {
         const formData = this.form.value;
         if (this.procedimento?.id) {
-          this.procedimento.observacao= formData.observacao;
+          this.procedimento.observacao = formData.observacao;
           this.procedimento.especialidade = formData.especialidade;
           this.procedimento.dataEntrega = formData.dataEntrega;
           this.procedimento.tipo = formData.tipo;
           await this.atualizarProcedimento(this.procedimento);
-          this.notification.showSuccess("Procedimento Atualizado com Sucesso!");
+          this.notification.showSuccess('Procedimento Atualizado com Sucesso!');
         } else {
-          this.notification.showSuccess("Procedimento Cadastrado com Sucesso!");
+          this.notification.showSuccess('Procedimento Cadastrado com Sucesso!');
           await this.cadastrarProcedimento(formData);
         }
         this.ionModalController.dismiss({ data: this.procedimento });
       } else {
-        this.notification.showError("Error ao Salvar Procedimento.");
+        this.notification.showError('Error ao Salvar Procedimento.');
       }
       this.ionModalController.dismiss({ data: this.procedimento });
-    }catch{
-      this.notification.showError("Erro na operação: Formulário inválido");
+    } catch {
+      this.notification.showError('Erro na operação: Formulário inválido');
     }
   }
 
@@ -88,7 +90,7 @@ export class ProcedimentoModalComponent  implements OnInit {
 
   private setFormValues(procedimento: any) {
     this.form.patchValue({
-      nome: this.paciente?.nome,
+      pacienteNome: this.paciente?.nome,
       observacao: procedimento?.observacao,
       dataEntrega: procedimento?.dataEntrega,
       especialidade: procedimento?.especialidade,
@@ -97,7 +99,7 @@ export class ProcedimentoModalComponent  implements OnInit {
     });
   }
 
-  handleChange(ev:any) {
+  handleChange(ev: any) {
     this.procedimento!.tipo = ev.target.value;
   }
 
@@ -107,5 +109,4 @@ export class ProcedimentoModalComponent  implements OnInit {
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
   }
-
 }

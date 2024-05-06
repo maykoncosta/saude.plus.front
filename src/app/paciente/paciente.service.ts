@@ -3,38 +3,52 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Page } from '../procedimento/procedimento.service';
 
 export class Paciente {
-    id!: number;
-    nome!: string;
-    dataNascimento!: String;
-    celular!: string;
-    cns!: Number;
-    observacao!: string;
-  }
+  id!: number;
+  nome!: string;
+  dataNascimento!: string;
+  celular!: string;
+  cns!: number;
+  observacao!: string;
+}
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PacienteService {
-
   private apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  getPacientes(): Observable<Paciente[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/pacientes`)
+  getPacientes(
+    searchTerm: string = '',
+    page: number = 0,
+    size: number = 10
+  ): Observable<Page<Paciente>> {
+    return this.http
+      .get<Page<Paciente>>(`${this.apiUrl}/pacientes`, {
+        params: {
+          nome: searchTerm.toString(),
+          page: page.toString(),
+          size: size.toString(),
+        },
+      })
       .pipe(
-        map(pacientesJSON => pacientesJSON.map(p => {
-          return {
-            id: p.id,
-            nome: p.nome,
-            dataNascimento: p.dataNascimento,
-            celular: p.celular,
-            cns: p.cns,
-            observacao: p.observacao
-          };
-        }))
+        map((pageData) => {
+          pageData.content = pageData.content.map((p: Paciente) => {
+            return {
+              id: p.id,
+              nome: p.nome,
+              dataNascimento: p.dataNascimento,
+              celular: p.celular,
+              cns: p.cns,
+              observacao: p.observacao,
+            };
+          });
+          return pageData;
+        })
       );
   }
 
@@ -47,7 +61,7 @@ export class PacienteService {
   }
 
   updatePaciente(paciente: any) {
-    return this.http.put(`${this.apiUrl}/pacientes/`, paciente);
+    return this.http.put(`${this.apiUrl}/pacientes`, paciente);
   }
 
   deletePaciente(id: number) {
