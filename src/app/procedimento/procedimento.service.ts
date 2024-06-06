@@ -40,10 +40,7 @@ export class ProcedimentoService {
     size: number = 10,
     sort: string = 'id,asc'
   ): Observable<Page<Procedimento>> {
-    let url =
-      idPaciente === undefined
-        ? `${this.apiUrl}/procedimentos`
-        : `${this.apiUrl}/procedimentos/paciente/${idPaciente}`;
+    let url = `${this.apiUrl}/procedimentos`;
     return this.http
       .get<Page<Procedimento>>(url, {
         params: {
@@ -53,6 +50,7 @@ export class ProcedimentoService {
       })
       .pipe(
         map((pageData) => {
+          if (!pageData.content) return pageData;
           pageData.content = pageData.content.map((p: Procedimento) => {
             return {
               id: p.id,
@@ -67,6 +65,25 @@ export class ProcedimentoService {
           return pageData;
         })
       );
+  }
+
+  getProcedimentoPorPaciente(idPaciente: number): any {
+    let url = `${this.apiUrl}/procedimentos/paciente/${idPaciente}`;
+    return this.http.get<any[]>(url).pipe(
+      map((procedimentosJson) =>
+        procedimentosJson.map((p) => {
+          return {
+            id: p.id,
+            pacienteId: p.pacienteId,
+            nome: p.pacienteNome,
+            observacao: p.observacao,
+            dataEntrega: p.dataEntrega,
+            tipo: p.tipo,
+            especialidade: p.especialidade,
+          };
+        })
+      )
+    );
   }
 
   getProcedimento(id: number) {

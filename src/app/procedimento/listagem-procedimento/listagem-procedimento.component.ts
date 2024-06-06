@@ -45,13 +45,22 @@ export class ListagemProcedimentoComponent implements OnInit {
       if (todos) {
         this.pacienteId = undefined;
       }
-      this.procedimentoService
-        .getProcedimentos(this.pacienteId, this.page - 1, this.size)
-        .subscribe((page) => {
-          this.procedimentos = page.content;
-          this.totalPages = page.totalPages;
-          this.naoPossuiProcedimentos = this.procedimentos.length === 0;
-        });
+      if (!this.pacienteId) {
+        this.procedimentoService
+          .getProcedimentos(this.pacienteId, this.page - 1, this.size)
+          .subscribe((page) => {
+            this.procedimentos = page.content;
+            this.totalPages = page.totalPages;
+            this.naoPossuiProcedimentos = !this.procedimentos;
+          });
+      } else {
+        this.procedimentoService
+          .getProcedimentoPorPaciente(this.pacienteId)
+          .subscribe((procedimentos: Procedimento[]) => {
+            this.procedimentos = procedimentos;
+            this.naoPossuiProcedimentos = this.procedimentos.length === 0;
+          });
+      }
     } catch (error) {
       console.error('Erro ao obter procedimentos:', error);
     }
@@ -155,6 +164,7 @@ export class ListagemProcedimentoComponent implements OnInit {
       .subscribe(() => {
         this.procedimentos.splice(index, 1);
       });
+    this.obterTodosProcedimentos();
   }
 
   async nextPage() {

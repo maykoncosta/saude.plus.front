@@ -67,8 +67,8 @@ export class ProcedimentoModalComponent implements OnInit {
           await this.atualizarProcedimento(this.procedimento);
           this.notification.showSuccess('Procedimento Atualizado com Sucesso!');
         } else {
-          this.notification.showSuccess('Procedimento Cadastrado com Sucesso!');
           await this.cadastrarProcedimento(formData);
+          this.notification.showSuccess('Procedimento Cadastrado com Sucesso!');
         }
         this.ionModalController.dismiss({ data: this.procedimento });
       } else {
